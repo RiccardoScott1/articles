@@ -1,7 +1,6 @@
 # **Unlocking Powerful Search in PostgreSQL with Full Text Search**
 **Boost PostgreSQL Performance with Built-In Full Text Search for Fast, Accurate SQL Queries**
 
-**Abstract**  
 Looking to implement powerful search functionality without relying on external tools like Elasticsearch or Solr? 
 PostgreSQL Full Text Search (FTS) offers a high-performance, fully integrated SQL search engine for natural-language text matching, 
 advanced indexing, and relevance ranking—all inside your database. 
@@ -41,12 +40,20 @@ through a pipeline that includes **tokenization, normalization, and analysis**:
 - normalized: e.g. by lowercasing, removing stop words, applying stemming or lemmatization, to create terms suitable for indexing 
 - These terms are stored in an inverted index, a data structure that maps each term to the documents (and positions) in which it appears, allowing fast lookup during searches.
 
-The **search query undergoes the same analysis pipeline** to generate a comparable set of normalized terms. The engine then retrieves candidate documents from the inverted index that contain these terms and applies ranking algorithms to measure relevance — typically based on TF-IDF (term frequency–inverse document frequency), BM25, or vector similarity scores (TODO add LINKS). 
+The **search query undergoes the same analysis pipeline** to generate a comparable set of normalized terms. 
+The engine then retrieves candidate documents from the inverted index that contain these terms and applies ranking algorithms to 
+measure relevance — typically based on 
+TF-IDF (term frequency–inverse document frequency)[https://en.wikipedia.org/wiki/Tf%E2%80%93idf], 
+(BM25)[https://en.wikipedia.org/wiki/Okapi_BM25], or vector similarity scores.
 
-Search engines also support advanced features like fuzzy matching, synonyms, phrase queries, boosting, and faceting, as well as semantic search using embeddings or vector search.
+Search engines also support advanced features like fuzzy matching, synonyms, phrase queries, 
+boosting, and faceting, as well as semantic search using embeddings or vector search.
 
-Unlike relational databases, these **engines are optimized** for full-text search at scale, distributed querying, and near real-time indexing. They maintain dedicated infrastructure, offer schema flexibility (especially Elasticsearch’s document-based JSON format), and are often decoupled from transactional consistency concerns, **trading some ACID guarantees for speed and scalability**. This architecture makes them ideal for applications like log analytics, e-commerce product search, or intelligent document retrieval.
-
+Unlike relational databases, these **engines are optimized** for full-text search at scale, distributed querying, 
+and near real-time indexing. They maintain dedicated infrastructure, offer schema flexibility 
+(especially Elasticsearch’s document-based JSON format), 
+and are often decoupled from transactional consistency concerns, **trading some ACID guarantees for speed and scalability**. 
+This architecture makes them ideal for applications like log analytics, e-commerce product search, or intelligent document retrieval.
 
 
 ## **Why Full Text Search in PostGres?**
@@ -68,17 +75,21 @@ PostgreSQL’s FTS solves these with tokenization, normalization, and indexed se
 
 ## `tsvector` and `tsquery`: Core Data Types for Full Text Search
 
-At the heart of PostgreSQL’s full text search system are two specialized data types: `tsvector` and `tsquery`. These work together to enable fast and powerful text search capabilities.
+At the heart of PostgreSQL’s full text search system are two specialized data types: `tsvector` and `tsquery`. 
+These work together to enable fast and powerful text search capabilities.
 
-* **`tsvector`** is used to store the *preprocessed* content of a document - normalised tokens plus stop-word removal, the lexemes - ready to be indexed and searched. Optionally, it can also store positional data to support relevance ranking or phrase matching. For example:
+* **`tsvector`** is used to store the *preprocessed* content of a document - normalised tokens plus stop-word removal, 
+  the lexemes - ready to be indexed and searched. 
+  Optionally, it can also store positional data to support relevance ranking or phrase matching. For example:
 
   ```sql
   SELECT to_tsvector('The quick brown fox jumps over the lazy dog');
   -- Outputs: 'brown':3 'dog':9 'fox':4 'jump':5 'lazi':8 'quick':2
   ```
 
-* **`tsquery`** represents the *search condition*. It’s a structured query format that includes lexemes and logical operators (`&` for AND, `|` for OR, `!` for NOT), as well as phrase and proximity operators like `<->` (FOLLOWED BY). 
-For instance, a search query might look like:
+* **`tsquery`** represents the *search condition*. It’s a structured query format that includes lexemes and logical operators (`&` for AND, `|` for OR, `!` for NOT), 
+  as well as phrase and proximity operators like `<->` (FOLLOWED BY). 
+  For instance, a search query might look like:
   ```sql
   SELECT to_tsquery('quick & fox');
   -- Returns a tsquery: 'quick' & 'fox'
@@ -107,14 +118,12 @@ text @@ tsquery -- equivalent to to_tsvector(x) @@ y
 text @@ text -- equivalent to to_tsvector(x) @@ plainto_tsquery(y)
 ```
 
-
 Use **phrase matching** with the  `<-> (FOLLOWED BY)` tsquery operator:
 
 ```sql
 SELECT to_tsvector('text search') @@ to_tsquery('text <-> search');
 -- returns true
 ```
-
 
 ```sql
 SELECT to_tsvector('text search') @@ to_tsquery('search <-> text');
@@ -133,7 +142,7 @@ PostgreSQL includes **text search configurations** for many languages, which con
 
 You can check available configurations with the `psql` command `\dF`.
 
-# ---- COMMENT: would be useful to include its output ----
+[[psql_dF.png]]
 
 And specify one explicitly:
 
