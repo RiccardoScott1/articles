@@ -1,6 +1,7 @@
 # Own the Stack: Deploying Ollama Models on DigitalOcean
 Host your own LLM with Ollama on DigitalOcean—cut costs, keep your data private, and gain full control over your AI stack.*
 
+![[ollam_do_logo.png]]
 ## Why Run Your Own LLM Instead of Using OpenAI or Google?
 
 Hosted LLM APIs like OpenAI, Google, and Anthropic are great for getting started—but they come with tradeoffs: high per-token costs, limited control, and zero data privacy guarantees.

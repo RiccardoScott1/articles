@@ -1,5 +1,5 @@
 *Combining crawl4AI, Supabase and N8N*
-![[title.png]]
+![[n8n_supabase_logo.png]]
 
 
 ## **Retrieval-Augmented Generation (RAG) - A brief overview**
