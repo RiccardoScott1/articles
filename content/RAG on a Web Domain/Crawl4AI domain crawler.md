@@ -2,6 +2,7 @@
 *A hands-on guide to turning any website into structured, vectorised knowledge—ready for your AI to reason over.*
 
 ![[crawl4ai_logo.png]]
+
 Here we present a simple setup to perform a breadth-first crawl of a given web-domain, 
 storing per page (meta)data such as internal and external links etc and semantically split chunks with embeddings for consumption of a RAG applications.
 
