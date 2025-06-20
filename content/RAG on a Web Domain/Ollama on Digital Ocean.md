@@ -1,5 +1,5 @@
 # Own the Stack: Deploying Ollama Models on DigitalOcean
-Host your own LLM with Ollama on DigitalOcean—cut costs, keep your data private, and gain full control over your AI stack.
+Host your own LLM with Ollama on DigitalOcean—cut costs, keep your data private, and gain full control over your AI stack.*
 
 ## Why Run Your Own LLM Instead of Using OpenAI or Google?
 

@@ -1,4 +1,4 @@
-**combining crawl4AI, Supabase and N8N**
+*Combining crawl4AI, Supabase and N8N*
 ![[title.png]]
 
 
