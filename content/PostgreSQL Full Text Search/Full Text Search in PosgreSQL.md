@@ -26,7 +26,7 @@ Searching text in SQL databases is often limited to basic pattern matching. But 
 Whether you're indexing articles, logs, or messages, FTS in PostgreSQL offers scalable and 
 sophisticated search capabilities right out of the box.
 ## Text search overview
-Text search in search engines like Elasticsearch, Solr, or OpenSearch follows a multi-phase process designed to optimize retrieval, relevance, and scalability for large volumes of text. 
+Text search in search engines like Elasticsearch, Solr, or OpenSearch follows a multi-phase process designed to optimise retrieval, relevance, and scalability for large volumes of text. 
 
 The process begins with **ingestion**, where raw text documents are processed through a pipeline that includes **tokenisation, normalisation, and analysis**:
 - Text is first split into **tokens** e.g., words
@@ -52,14 +52,14 @@ Traditional search methods such as `LIKE` or `~` fall short when it comes to:
 PostgreSQL’s FTS solves these with tokenisation, normalisation, and indexed search.
 
 ## **How PostgreSQL Handles Text Search Internally**
-- **Parsing**: PostgreSQL breaks documents into **tokens** (e.g., words, numbers, emails) using a built-in parser. Custom parsers can be defined for specialized needs.
+- **Parsing**: PostgreSQL breaks documents into **tokens** (e.g., words, numbers, emails) using a built-in parser. Custom parsers can be defined for specialised needs.
 
 - **Normalisation**: Tokens are converted into **lexemes**—standardised word forms, root forms of words—by removing suffixes, folding case, and filtering out common stop words. This step ensures similar words (like satisfy and satisfies, running and run etc) match.
 
 - **Storage**: Documents are stored as **tsvectors** — sorted arrays of lexemes, optionally with position info to improve relevance ranking in dense query matches.
 
 ## `tsvector` and `tsquery`: Core Data Types for Full Text Search
-At the heart of PostgreSQL’s full text search system are two specialized data types: `tsvector` and `tsquery`. 
+At the heart of PostgreSQL’s full text search system are two specialised data types: `tsvector` and `tsquery`. 
 These work together to enable fast and powerful text search capabilities.
 * **`tsvector`** is used to store the *preprocessed* content of a document - normalised tokens plus stop-word removal, the lexemes - ready to be indexed and searched.  Optionally, it can also store positional data to support relevance ranking or phrase matching. For example:
   ```sql
@@ -111,17 +111,16 @@ PostgreSQL includes **text search configurations** for many languages, which con
 * One or more **dictionaries** to normalise or eliminate tokens (e.g., stemming, stop-word filtering).
 
 You can check available configurations with the `psql` command `\dF`.
-[[psql_dF.png]]
+
+![[psql_dF.png]]
 
 
 And specify one explicitly:
-
 ```sql
 SELECT to_tsvector('french', 'les chats aiment le lait');
 ```
 
 Or set a default for your session or database:
-
 ```sql
 SET default_text_search_config = 'english';
 ```
@@ -131,7 +130,7 @@ Custom configurations can also be created if you need tailored parsing or synony
 
 ## Indexing
 
-PostgreSQL allows full text search even without an index, making it easy to try out queries before optimizing them. For example, the following query finds rows where the `body` column includes any variant of the word *friend*, such as *friends* or *friendly*:
+PostgreSQL allows full text search even without an index, making it easy to try out queries before optimising them. For example, the following query finds rows where the `body` column includes any variant of the word *friend*, such as *friends* or *friendly*:
 
 ```sql
 SELECT title
@@ -191,19 +190,15 @@ CREATE INDEX textsearch_idx ON pgweb USING GIN (textsearchable_index_col);
 This approach reduces query complexity and avoids recomputing `to_tsvector()` at search time, making it ideal for high-performance applications.
 
 ### The GIN index
-PostgreSQL’s **GIN (Generalized Inverted Index)** is a specialized index type designed to efficiently support containment queries on composite data types — particularly well-suited for full text search (and json data). In the context of `tsvector` columns used for full text indexing, GIN indexes store a mapping from each lexeme to the list of documents (or rows) in which it appears, much like an inverted index in traditional search engines. 
+PostgreSQL’s **GIN (Generalised Inverted Index)** is a specialised index type designed to efficiently support containment queries on composite data types — particularly well-suited for full text search (and json data). In the context of `tsvector` columns used for full text indexing, GIN indexes store a mapping from each lexeme to the list of documents (or rows) in which it appears, much like an inverted index in traditional search engines. 
 
 This allows PostgreSQL to quickly locate documents matching a search term without scanning the entire table. GIN indexes are highly effective for queries involving `@@` operators, which match `tsquery` conditions against a `tsvector`. While GIN indexes are slower to build and update than B-tree indexes, they offer excellent query performance, especially for read-heavy applications with large text datasets.
 
-
-
 ## Core Functions for Full Text Search in PostgreSQL
-
 PostgreSQL offers a comprehensive toolkit for implementing FTS, from parsing documents to interpreting user queries. Below are the core functions involved, each serving a unique role in the search workflow.
 
 ### `to_tsvector`: Parsing Documents
-
-`to_tsvector` transforms raw document text into a normalized `tsvector`.
+`to_tsvector` transforms raw document text into a normalised `tsvector`.
 
 **Example:**
 ```sql
@@ -212,7 +207,6 @@ SELECT to_tsvector('english', 'A fat cat sat on a mat - it ate fat rats');
 ```
 
 Notice how:
-
 * Stop words like "a", "on", and "it" are removed.
 * Plural forms like "rats" are reduced to their singular form "rat".
 * Punctuation is ignored.
@@ -228,7 +222,6 @@ UPDATE documents SET fts_index =
 ```
 
 In this example:
-
 * `to_tsvector(coalesce(title, ''))` extracts search terms from the `title` field, and assigns them the highest weight `'A'`.
 * `to_tsvector(coalesce(body, ''))` does the same for the `body` field but assigns a lower weight `'B'`.
 * The `||` operator merges the two `tsvector` results into a single weighted index.
@@ -242,20 +235,21 @@ select
 
 This strategy ensures that search results where the match occurs in the title will be considered more relevant than those with matches only in the body.
 
-
 ### `to_tsquery`: Structured Query Parsing
-
-`to_tsquery` builds a `tsquery` object from structured query text using operators like `&` (AND), `|` (OR), `!` (NOT), and `<->` (FOLLOWED BY). Tokens are normalized, and stop words are ignored.
+`to_tsquery` builds a `tsquery` object from structured query text using operators like
+- `&` (AND) 
+- `|` (OR)
+- `!` (NOT) 
+- `<->` (FOLLOWED BY) 
+Tokens are normalised, and stop words are ignored.
 
 **Example:**
-
 ```sql
 SELECT to_tsquery('english', 'fat & rats');
 -- 'fat' & 'rat'
 ```
 
 Supports advanced features like weights and prefix matching:
-
 ```sql
 SELECT to_tsquery('english', 'fat | rats:AB');
 -- 'fat' | 'rat':AB  Matches the exact word 'fat' OR 'rat' with weight A or B only.
@@ -272,56 +266,48 @@ The difference between `:*A` and `:A` in PostgreSQL lies in **prefix matching**.
 Use `:*A` when you want **prefix-based fuzzy matching** **with a specific weight**.
 
 
-### `plainto_tsquery`: Simple Text Queries
+### Simple Text Queries: `plainto_tsquery`
 
 `plainto_tsquery` is ideal for quick searches without using operators. It automatically adds `&` between terms and ignores punctuation and special query syntax.
 
 **Example:**
-
 ```sql
 SELECT plainto_tsquery('english', 'The Fat Rats');
 -- 'fat' & 'rat'
 ```
 This function is great for user-entered text where no special logic is expected.
 
-### `phraseto_tsquery`: Phrase Search
-
+### Phrase Search: `phraseto_tsquery`
 `phraseto_tsquery` behaves like `plainto_tsquery`, but it uses `<->` (FOLLOWED BY) to preserve word order, which is useful for searching phrases.
 
 **Example:**
-
 ```sql
 SELECT phraseto_tsquery('english', 'The Fat Rats');
 -- 'fat' <-> 'rat'
 ```
 
 It also retains stop word positions using `<N>` to denote gaps in sequences.
-
 ```sql
 select phraseto_tsquery('english', 'The cat on the mat');
 --'cat' <2> 'mat'
 ```
-This helps maintain the phrase structure, allowing more accurate phrase searches even when stop words are present.
 
+This helps maintain the phrase structure, allowing more accurate phrase searches even when stop words are present.
 ```sql
 select 'cat is a mat' @@ phraseto_tsquery('english', 'The cat on the mat');
 --returns true  because 'is a' are 2 stop words just like 'on the'
 ```
 
-
-### `websearch_to_tsquery`: Search-Engine Style
-
+### Search-Engine Style: `websearch_to_tsquery`
 `websearch_to_tsquery` is the most user-friendly and forgiving option. It uses syntax similar to popular search engines like Google or Bing.
 
 **Supported syntax includes:**
-
 * `"quoted text"` → phrase (`<->`)
 * `-` → NOT (`!`)
 * `or` → OR (`|`)
 * Plain words → AND (`&`)
 
 **Examples:**
-
 ```sql
 SELECT websearch_to_tsquery('english', 'The fat rats');
 -- 'fat' & 'rat'
@@ -336,14 +322,10 @@ SELECT websearch_to_tsquery('english', 'signal -"segmentation fault"');
 -- 'signal' & !( 'segment' <-> 'fault' )
 ```
 
-This is perfect for web apps where users expect flexible, natural search behavior without syntax errors.
-
+This is perfect for web apps where users expect flexible, natural search behaviour without syntax errors.
 
 Each of these functions supports different use cases, from structured filters to intuitive search interfaces. Together, they form the foundation of PostgreSQL's powerful and flexible full text search system.
-
-
 ## Ranking Results
-
 **PostgreSQL offers two built-in ranking functions—`ts_rank` and `ts_rank_cd`—to assess the relevance of documents in full-text search results.** 
 These functions account for factors such as term frequency, proximity, and document structure. 
 While `ts_rank` focuses on frequency of matches, `ts_rank_cd` additionally considers how close the matching terms appear together (**c**over **d**ensity). 
@@ -355,7 +337,7 @@ ts_rank_cd([ weights float4[], ] vector tsvector, query tsquery [, normalization
 
 Both support weighting terms differently based on their position in the document (e.g., title vs. body): {D-weight, C-weight, B-weight, A-weight} default to {0.1, 0.2, 0.4, 1.0} .
 
-Normalization options allow for adjusting relevance scores based on document length or word uniqueness: 
+Normalisation options allow for adjusting relevance scores based on document length or word uniqueness: 
 
 - 0 (the default) ignores the document length
 - 1 divides the rank by 1 + the logarithm of the document length
@@ -373,7 +355,6 @@ These functions provide a flexible foundation, and can also be extended or custo
 In all examples below, assume a table `my_table` with the column `textsearch` of type `tsvector`, typically generated using `to_tsvector()` and indexed on relevant document fields (such as titles, abstracts, and content).
 
 ### Example Using `ts_rank`:**
-
 The `ts_rank` function is useful for general-purpose ranking based on term frequency. 
 The following query selects the top 10 most relevant documents for a search involving the terms *neutrino* or *dark matter*, using `ts_rank` to sort the results:
 
@@ -394,7 +375,6 @@ This will return a ranked list of documents where the most frequent and relevant
 
 
 ### **Example Using `ts_rank_cd`:**
-
 `ts_rank_cd` adds proximity into the scoring formula, favouring documents where the matched terms are closer together. This makes it ideal for more fine-grained ranking of results:
 
 ```sql
@@ -411,11 +391,8 @@ LIMIT 10;
 
 This function requires that the `tsvector` includes positional information (i.e. "'ate':9 'cat':3 'fat':2,11"), or it will return a score of zero. This nuance makes `ts_rank_cd` better suited for use cases where phrase or contextual proximity significantly impacts relevance.
 
-
 ### **Using Weights in Ranking Functions:**
-
 Both `ts_rank` and `ts_rank_cd` support an optional `weights` argument. For example:
-
 ```sql
 SELECT 
   title, 
@@ -430,19 +407,13 @@ LIMIT 10;
 
 Here, terms tagged with weight category `A` (typically used for titles) are given full weight (1.0), while those in category `D` (e.g., footnotes or less important sections) are given a lower influence (0.1). This allows tailoring ranking logic to reflect the structure and importance of various parts of the content.
 
-
 ## **Conclusion**
-
 PostgreSQL’s Full Text Search (FTS) is a powerful, built-in solution that provides robust text search capabilities directly within the database. Unlike external search engines, PostgreSQL FTS eliminates the need for separate infrastructure and ensures that your search results are always up to date with minimal overhead. By leveraging key features like `tsvector`, `tsquery`, and various ranking functions, users can perform highly efficient, linguistically-aware searches on their data.
 
 From parsing and indexing to complex query handling and ranking, PostgreSQL provides a comprehensive, flexible system for managing and querying text data. With its ability to handle linguistic variations, rank results, and support customizable configurations for different languages, PostgreSQL’s FTS makes it an ideal choice for anyone looking to build an integrated and scalable search solution without relying on external search engines.
 
 In summary, PostgreSQL's Full Text Search offers everything you need for sophisticated search functionalities, whether you're building a simple search feature or tackling complex, high-performance search use cases. The deep integration into the database ensures consistency, performance, and real-time results, making it a powerful tool for developers and database administrators alike — without reaching for external tools.
 
-
-
 #### Resources 
 https://pgconf.in/files/presentations/2020/Oleg_Bartunov_2020_Full_Text_Search.pdf
-
-pg docs link
-
+https://www.postgresql.org/docs/current/textsearch.html

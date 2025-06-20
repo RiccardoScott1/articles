@@ -51,7 +51,7 @@ interface and tight integration with modern toolchains, Supabase is ideal for
 hosting and querying embedded data in RAG applications, enabling fast,
 scalable, and secure data access.
 
-To set up n8n and supabase checkout the indepth article [[N8N and Supabase.md]].
+To set up n8n and supabase checkout the indepth article [[Setting up N8N and Supabase for a Domain aware RAG App]].
 
 ### Crawl4AI
 [**Crawl4AI**](https://docs.crawl4ai.com/) is a lightweight, open-source web

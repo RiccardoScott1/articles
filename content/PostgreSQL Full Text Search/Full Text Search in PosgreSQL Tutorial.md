@@ -8,8 +8,6 @@ Here we want to give a quick tutorial on FTS with some real world exapmles.
 
 TODO 
 - Find a good dataset (text, abstract, title) (could use crawled results from some domain)
-
-
 - show exaple record of raw text
 
 ## one tsvector just concat text

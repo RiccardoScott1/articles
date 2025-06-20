@@ -28,7 +28,7 @@ Supabase is a fully managed, open-source backend-as-a-service database built on 
 
 To get started you'll need to:
 - [Sign up](https://supabase.com/) and start a new project
-- Create the `documents` and `crawled_pages` tables for the crawled data, see [[N8N and Supabase.md]] for more details.
+- Create the `documents` and `crawled_pages` tables for the crawled data, see [[Setting up N8N and Supabase for a Domain aware RAG App]] for more details.
 
 ### Docker
 We will be embedding our text chunks from web pages with a local Ollama model running on **Docker**.
@@ -357,7 +357,7 @@ python src/main.py
 If you open your Supabase project you should start seeing the `crawled_pages` 
 as well as the `documents` tables being populated. 
 
-If you alreadt set up Supabase and N8N - (see [[N8N and Supabase.md]]) -  you can now go over to your n8n workflow, open the chat node and start asking questions about the domain you are scraping.
+If you alreadt set up Supabase and N8N - (see [[Setting up N8N and Supabase for a Domain aware RAG App]]) -  you can now go over to your n8n workflow, open the chat node and start asking questions about the domain you are scraping.
 
 
 ## **Conclusion**
