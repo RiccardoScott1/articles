@@ -325,7 +325,7 @@ reveals the attributes file `.dbf` is the culprit with over 1GB.
 This makes sense. OSM data is very sparse with many different attributes rarely populated, resulting in a lot of (mostly empty) columns in the `.dbf` file. For OSM data a key-value based format like `geojson` and `.kml` is more efficient.
 
 ## Write to DB 
-It is time to walk through the imports to PostGIS. We use docker-compose to run PostGIS (`postgis/postgis:latest`) and a client with the gdal library installed based on the `ghcr.io/osgeo/gdal:ubuntu-full-latest` image. (REF: simple geosetup article)
+It is time to walk through the imports to PostGIS. We use docker-compose to run PostGIS (`postgis/postgis:latest`) and a client with the gdal library installed based on the `ghcr.io/osgeo/gdal:ubuntu-full-latest` image. See [[geospatial stack]] for setting up PostGIS with a GDAL client.
 
 ### KML
 To import a `.kml` file to PostGIS all we need are 
