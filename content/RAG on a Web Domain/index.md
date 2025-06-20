@@ -6,4 +6,8 @@ title: RAG on a Web Domain
 -  🧠 Crawl → Embed → Chat.
 - 🔧 Using only open tools: n8n, Supabase, Ollama, and Crawl4AI.
 -  📖 Full guide here: \[[Quickstart.md]]
--  \#RAG #LLM #OpenSource #AI
+- Detailed guides on 
+	- setting up n8n and Supabase [[Setting up N8N and Supabase for a Domain aware RAG App|here]]
+	- setting up an Ollama model on Digital Ocean [[Ollama on Digital Ocean|here]]
+	- setting up the crawler locally [[Crawl4AI domain crawler|here]]
+-  \#RAG #LLM #OpenSource #AI #Ollama #Crawl4AI

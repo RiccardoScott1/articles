@@ -15,7 +15,7 @@ or frequently updated contexts.
 At its core, a RAG workflow retrieves contextually relevant chunks of
 information using semantic search (typically via vector embeddings), then
 passes this context along with the user’s question into an LLM. The result is a
-grounded, contextualized answer that’s both coherent and informed by up-to-date
+grounded, contextualised answer that’s both coherent and informed by up-to-date
 data. Whether you're building an internal knowledge assistant or a
 public-facing chatbot, RAG helps ensure your AI is informed, not just
 intelligent.
@@ -35,7 +35,7 @@ remotely). See [[Ollama on Digital Ocean.md]].
 
 With native support for hundreds of integrations and the ability to run JavaScript code or call webhooks, n8n is a powerful platform for orchestrating data flows—perfect for building Retrieval-Augmented Generation (RAG) applications that combine scraping, embedding, storage, and AI querying into a seamless process. 
 
-You can either use the hosted version or self-host wherever you like. Sign-up and start automatin. 
+You can either use the hosted version or self-host wherever you like. Sign-up and start automating. 
 
 ### Supabase 
 [**Supabase**](https://supabase.com/) is an open-source backend-as-a-service that offers a powerful alternative to Firebase, built on top of PostgreSQL. It provides a fully managed database, real-time subscriptions, authentication, storage, and RESTful or GraphQL APIs out of the box. 
@@ -186,3 +186,8 @@ to ask questions and get answers!
 ## Next steps 
 Why not make your agent smarter and add the wikipedia tool node in n8n?!
 
+## **Conclusion: A Simple, Flexible RAG Stack**
+
+With **Crawl4AI**, **Supabase**, and **n8n**, you now have a clear, modular setup for building Retrieval-Augmented Generation workflows. From crawling and embedding data to querying it through an AI agent, each component is open-source, easy to customise, and fits neatly into a broader automation pipeline.
+
+This stack is a solid foundation for projects that need up-to-date, searchable knowledge—whether for internal tools, chatbots, or content analysis. Now that everything’s connected, all that’s left is to keep experimenting and expanding.
