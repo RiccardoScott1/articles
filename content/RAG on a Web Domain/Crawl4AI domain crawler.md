@@ -1,30 +1,23 @@
 # **From Crawl to Context: Building a RAG-Ready Dataset with Crawl4AI**
-A hands-on guide to turning any website into structured, vectorized knowledge—ready for your AI to reason over.
+A hands-on guide to turning any website into structured, vectorised knowledge—ready for your AI to reason over.
 
 Here we present a simple setup to perform a breadth-first crawl of a given web-domain, 
-storing per page (meta)data such as internal and external links etc 
-and semantically split chunks with embeddings for consumption of a RAG applications.
+storing per page (meta)data such as internal and external links etc and semantically split chunks with embeddings for consumption of a RAG applications.
 
-The code can be found here (REF add link to repo )
+The code can be found [here](https://github.com/RiccardoScott1/talktomycrawl).
 
 ## Crawl4AI
-[**Crawl4AI**](https://docs.crawl4ai.com/) is a lightweight, open-source web
-crawling framework designed specifically for AI and machine learning use cases.
-It simplifies the process of extracting structured content from websites,
-making it easy to gather high-quality text data for tasks like training models
+[**Crawl4AI**](https://docs.crawl4ai.com/) is a lightweight, open-source web crawling framework designed specifically for AI and machine learning use cases. It simplifies the process of extracting structured content from websites, making it easy to gather high-quality text data for tasks like training models
 or building RAG pipelines. 
 
-With built-in support for filtering, rate limiting,
-and customizable parsing logic, Crawl4AI is ideal for developers looking to
-integrate clean, domain-specific data into LLM workflows.
+With built-in support for filtering, rate limiting, and customisable parsing logic, Crawl4AI is ideal for developers looking to integrate clean, domain-specific data into LLM workflows.
 
 
 ## Implementation
 Next we will walk through the prerequisites and code to run our web-domain crawler.
 
 ### Supabase
-We will be storing the crawled data and embeddings to a remote [**Supabase**](https://supabase.com/) database. 
-Supabase is a fully managed, open-source backend-as-a-service database built on top of PostgreSQL. 
+We will be storing the crawled data and embeddings to a remote [**Supabase**](https://supabase.com/) database. Supabase is a fully managed, open-source backend-as-a-service database built on top of PostgreSQL. 
 
 To get started you'll need to:
 - [Sign up](https://supabase.com/) and start a new project
@@ -33,15 +26,11 @@ To get started you'll need to:
 ### Docker
 We will be embedding our text chunks from web pages with a local Ollama model running on **Docker**.
 
-To install Docker, visit [https://docs.docker.com/get-docker](https://docs.docker.com/get-docker) 
-and download the appropriate version for your operating system. 
-After installation, verify it’s working by running `docker --version` in your terminal.
+To install Docker, visit [https://docs.docker.com/get-docker](https://docs.docker.com/get-docker)  and download the appropriate version for your operating system.  After installation, verify it’s working by running `docker --version` in your terminal.
 
 
 ### Code for crawling and embedding
-Next we will set up the code for crawling all the pages on a given domain,
-cleaning, chunking and embedding the content and storing page data and
-embeddings to Supabase.
+Next we will set up the code for crawling all the pages on a given domain, cleaning, chunking and embedding the content and storing page data and embeddings to Supabase.
 
 The repo is structured in the following:
 ```
@@ -74,7 +63,7 @@ a configurable browser and deep crawl strategy, extracts and cleans HTML
 content, and processes the results.
 
 Successful crawls are stored in a Supabase table `crawled_pages` and passed 
-through a document embedding function for vectorization (see `embed.py` later).
+through a document embedding function for vectorisation (see `embed.py` later).
 The setup enables automated content ingestion, transformation, and storage for
 RAG applications.
 
