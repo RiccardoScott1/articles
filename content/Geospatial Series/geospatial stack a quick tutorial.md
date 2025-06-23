@@ -5,6 +5,8 @@ In the world of geospatial data science, setting up your environment can often b
 
 Get started by pulling or cloning the [repo](https://github.com/RiccardoScott1/simple_geosetup)
 
+For an in-depth walkthrough of the docker-compose file, the different containers and services checkout [[geospatial stack in depth]].
+
 **Enter Docker Compose.**
 In this post, we’ll walk through how to set up a **modular, reproducible, and fully containerised geospatial development environment** using Docker Compose. Our stack includes:
 - **PostGIS** – A spatially enabled PostgreSQL database for storing and querying geospatial data.

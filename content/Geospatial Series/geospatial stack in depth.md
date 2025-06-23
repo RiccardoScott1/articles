@@ -2,8 +2,8 @@
 *A streamlined, containerised setup for geospatial data projects using Docker Compose.* 
 
 By integrating a PostGIS database for geospatial data storage, a GDAL-powered client for data processing, and JupyterLab for interactive analysis, this setup provides a robust and modular solution for geospatial workflows. With persistent data storage, seamless service communication, and custom Dockerfiles, it simplifies tasks like ETL pipelines, database management, and advanced visualization. Whether you're a GIS professional or a data scientist, this guide offers a scalable and reproducible foundation to enhance your geospatial projects.
-The repo can be found [here](https://github.com/RiccardoScott1/simple_geosetup). Here's the main files in it:
 
+The repo can be found [here](https://github.com/RiccardoScott1/simple_geosetup). Here's the main files in it:
 ```
 .
 ├── README.md
@@ -16,11 +16,12 @@ The repo can be found [here](https://github.com/RiccardoScott1/simple_geosetup).
 │   └── requirements.txt
 └── makefile
 ```
+
 The `compose.yaml` file is a **Docker Compose configuration file** that defines and manages multiple services in a containerized environment. 
 
 The `geo_notebook` and `client` service are referred to in the `compose.yaml` and built from two custom Dockerfiles (`geo_notebook/dockerfile` and `dockerfile`, respectively), we'll look into them in more detail now.
 ## Get it up and running
-For the impatient reader here's how to get the services up and running or checkout the [[geospatial stack|quick giude ]]:
+For the impatient reader here's how to get the services up and running or checkout the [[geospatial stack a quick tutorial|quick giude ]]:
 ### Prerequisites
 1. **Docker installed**: Ensure Docker is installed on your system. Docker is available for Windows, macOS, and Linux. Installation instructions can be found on the [Docker website](https://docs.docker.com/compose/install/).
 2. **.env file**
@@ -37,7 +38,7 @@ JUPYTER_PORT=8889
 Or add export them to your shell before running `docker compose up`. See [here](https://docs.docker.com/compose/how-tos/environment-variables/set-environment-variables/) for more info on passing environment variables to docker compose as well as precedence and interpolation of variables.
 
 ### Run the Services
-For convienience a `makefile` is added to the repository so you can (re)start all services and get the link to the Jupyter server with one command:
+For convenience a `makefile` is added to the repository so you can (re)start all services and get the link to the Jupyter server with one command:
 ```bash
 make all
 ```
@@ -141,7 +142,7 @@ db:
 - **Ports**: Maps the database's port `5432` to the host machine. If `EXTERNAL_IP` is not set, it defaults to `127.0.0.1`.
 - **Volumes**: Mounts a local directory (`./data/postgis_data`) to persist database data.
 - **Networks**: Connects the service to the `net` network.
-- 
+
 #### **`client` Service**
 ```yaml
 client:
@@ -170,7 +171,7 @@ client:
 - **Networks**: Connects to the `net` network.
 - **Depends On**: Ensures the `db` service starts before this service.
 
-*Note: the database service `db` is also the host-name of the database within the docker-compose network. If you want to access the DB from a DB tool like DBbeaver or a Python script running locally but outside the docker network, the host is `localhost` (or `127.0.0.1` and port the mapped port in db service:ports.*
+>**Note**: the database service `db` is also the host-name of the database within the docker-compose network. If you want to access the DB from a DB tool like DBbeaver or a Python script running locally but outside the docker network, the host is `localhost` (or `127.0.0.1` and port the mapped port in db service:ports.*
 
 #### **geo_notebook Service**
 ```yaml
@@ -212,7 +213,6 @@ Defines a custom network named `net` using the `bridge` driver. This allows the 
 ## Understanding the Dockerfiles in the Project
 Now we'll walk through the Dockerfiles the `geo_notebook` and `client` services are built from.
 ### **Dockerfile for geo_notebook**
-
 This Dockerfile defines the environment for the `geo_notebook` service.
 ```docker
 FROM quay.io/jupyter/minimal-notebook:python-3.12
@@ -253,7 +253,7 @@ RUN set -x \
 RUN npm install -g osmtogeojson
 ```
 
-This Dockerfile is designed to create a containerised environment for geospatial data processing. By starting with the GDAL image and adding database clients, it provides a versatile setup for working with geospatial data stored in PostgreSQL (with PostGIS extensions) or SQLite and npm in order to then install the osmtogeojson package.
+This Dockerfile is designed to create a containerised environment for geospatial data processing. By starting with the GDAL image and adding database clients, it provides a versatile setup for working with geospatial data stored in PostgreSQL (with PostGIS extensions) or `SQLite` and `npm` in order to then install the `osmtogeojson` package.
 
 **GDAL (Geospatial Data Abstraction Library)** is widely used for geospatial data processing, and this setup is tailored for geospatial workflows. This Dockerfile defines a custom Docker image based on the GDAL image. 
 
@@ -267,10 +267,10 @@ This setup is particularly useful for:
 Here's a breakdown of what each line does:
 
 The **base image** `ghcr.io/osgeo/gdal:ubuntu-full-latest` is a full-featured GDAL image based on Ubuntu that includes GDAL and its dependencies, making it suitable for geospatial data processing tasks such as raster and vector data manipulation. For example it includes the powerful `ogr2ogr` library that we'll cover separately. REF: geo-imports ARTICLE
-
 ```dockerfile
 ENV DEBIAN_FRONTEND=noninteractive
 ```
+
 Sets the `DEBIAN_FRONTEND` environment variable to `noninteractive`. This ensures that when `apt-get` commands are run, they do not prompt for user input, which is essential for automated builds.
 
 **Installing Additional Tools**

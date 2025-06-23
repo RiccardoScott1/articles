@@ -9,7 +9,7 @@ In our previous article [[DBSCAN general]] we explored how DBSCAN works and comp
 
 In this follow-up, we show how to use `ST_ClusterDBSCAN` for clustering real-world spatial data, such as building polygons from OpenStreetMap. **Unlike point-based clustering, these geometries often require true shape-to-shape distance calculations**. In some cases, only touching buildings should be considered neighbours — making `epsilon=0` a practical setting. We'll walk through a full example to demonstrate how this works in practice.
 ## PostGIS DBSCAN query
-If you want to code along we recommend following our  [[geospatial stack|geospatial setup quickstart]] and importing some OpenStreetMap data (REF TO IMPORT OSM DATA).
+If you want to code along we recommend following our  [[geospatial stack a quick tutorial|geospatial setup quickstart]] and importing some OpenStreetMap data (REF TO IMPORT OSM DATA).
   
 We've imported OSM building polygons into a PostGIS DB.
 
