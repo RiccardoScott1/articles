@@ -1,5 +1,12 @@
 ---
 title: RAG on a Web Domain
+tags:
+  - RAG
+  - LLM
+  - OpenSource
+  - AI
+  - Ollama
+  - Crawl4AI
 ---
 
 🚀 A full-stack RAG pipeline that lets you *chat with the entire content of any website*.
