@@ -234,6 +234,15 @@ WORKDIR /code
   - Sets the working directory to code, where the container will start executing commands.
 
 ### Dockerfile for a GDAL Client
+**GDAL (Geospatial Data Abstraction Library)** is widely used for geospatial data processing, and this setup is tailored for geospatial workflows. This Dockerfile defines a custom Docker image based on the GDAL image. 
+
+This setup is particularly useful for:
+- Running geospatial queries on PostgreSQL/PostGIS databases.
+- Manipulating geospatial data stored in SQLite databases.
+- Converting raw OpenStreeMap data to GeoJson.
+- Using GDAL tools for raster and vector data processing.
+- Importing and exporting data to and from PostGIS
+
 ```docker
 # Use the latest Ubuntu-based full GDAL image from the GitHub Container Registry
 FROM ghcr.io/osgeo/gdal:ubuntu-full-latest
@@ -254,15 +263,6 @@ RUN npm install -g osmtogeojson
 ```
 
 This Dockerfile is designed to create a containerised environment for geospatial data processing. By starting with the GDAL image and adding database clients, it provides a versatile setup for working with geospatial data stored in PostgreSQL (with PostGIS extensions) or `SQLite` and `npm` in order to then install the `osmtogeojson` package.
-
-**GDAL (Geospatial Data Abstraction Library)** is widely used for geospatial data processing, and this setup is tailored for geospatial workflows. This Dockerfile defines a custom Docker image based on the GDAL image. 
-
-This setup is particularly useful for:
-- Running geospatial queries on PostgreSQL/PostGIS databases.
-- Manipulating geospatial data stored in SQLite databases.
-- Converting raw OpenStreeMap data to GeoJson.
-- Using GDAL tools for raster and vector data processing.
-- importing and exporting data to and from PostGIS
 
 Here's a breakdown of what each line does:
 
