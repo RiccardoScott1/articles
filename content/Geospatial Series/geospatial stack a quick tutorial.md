@@ -36,7 +36,7 @@ POSTGRES_DB=pg
 JUPYTER_TOKEN=mytoken
 JUPYTER_PORT=8889
 ```  
-### run the services
+### Run the Services
 For convienience we added a `makefile` to the repository so you can (re)start all services and get the link to the Jupyter server with one command:
 ```bash
 make all

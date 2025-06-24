@@ -1,7 +1,7 @@
 # Managing and Converting Geospatial Data with PostGIS and ogr2ogr
 *A Practical Guide to Converting, Importing, and Exporting Geospatial Data with GDAL’s `ogr2ogr` Tool*
 
-# Intro
+## Intro
 Geospatial data is essential in numerous fields, from urban planning and environmental monitoring to navigation systems, disaster management and [[https://medium.com/@QBizUK/helping-the-london-fire-brigade-identify-high-rise-residential-buildings-8ee9bffe9f91 |safety]].
 
 Over the years, various file formats have been developed to store and share geographic information, each with its own set of features and use cases. Common geospatial file formats include [[Geoformats to PostGIS#**Shapefile (.shp)**|Shapefile]], [[Geoformats to PostGIS#**KML (Keyhole Markup Language)**|KML]], [[Geoformats to PostGIS#GPX|GPX]], [[Geoformats to PostGIS#**GeoPackage (.gpkg)**|GeoPackage]] and [[Geoformats to PostGIS#**GeoJSON (.geojson)**|GeoJSON]], which differ in their structure, flexibility, and compatibility with different software tools.
