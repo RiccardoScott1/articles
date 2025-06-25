@@ -1,24 +1,9 @@
 *Combining crawl4AI, Supabase and N8N*
 ![[n8n_supabase_logo.png]]
-
-
 ## **Retrieval-Augmented Generation (RAG) - A brief overview**
+Retrieval-Augmented Generation (RAG) is a powerful technique that combines the generative strength of large language models (LLMs) with the precision of retrieval-based systems. Instead of relying solely on a model’s internal knowledge, RAG pipelines dynamically pull in relevant external data—like documents, websites, or databases—at query time. This dramatically improves the factual accuracy and adaptability of LLMs, especially in domain-specific or frequently updated contexts.
 
-Retrieval-Augmented Generation (RAG) is a powerful technique that combines the
-generative strength of large language models (LLMs) with the precision of
-retrieval-based systems. Instead of relying solely on a model’s internal
-knowledge, RAG pipelines dynamically pull in relevant external data—like
-documents, websites, or databases—at query time. This dramatically improves
-the factual accuracy and adaptability of LLMs, especially in domain-specific
-or frequently updated contexts.
-
-At its core, a RAG workflow retrieves contextually relevant chunks of
-information using semantic search (typically via vector embeddings), then
-passes this context along with the user’s question into an LLM. The result is a
-grounded, contextualised answer that’s both coherent and informed by up-to-date
-data. Whether you're building an internal knowledge assistant or a
-public-facing chatbot, RAG helps ensure your AI is informed, not just
-intelligent.
+At its core, a RAG workflow retrieves contextually relevant chunks of information using semantic search (typically via vector embeddings), then passes this context along with the user’s question into an LLM. The result is a grounded, contextualised answer that’s both coherent and informed by up-to-date data. Whether you're building an internal knowledge assistant or a public-facing chatbot, RAG helps ensure your AI is informed, not just intelligent.
 
 ## The services and tech needed to crawl a website and chat with the content
 We'll briefly cover the various parts of our RAG prototype made of:
@@ -55,11 +40,7 @@ Now let's dive straight into the implementation.  We'll setup two tables in Supa
 ### Supabase init
 We start with a SQL file that sets up the foundational schema for using Supabase as a vector database to support RAG. The file can be found [here](https://github.com/RiccardoScott1/talktomycrawl/blob/main/supabase_init.sql). We split it into three part here, to make it more readable.
 
-First, we enable the `pgvector` extension, which allows for storing and 
-querying high-dimensional vectors—essential for working with embeddings from 
-language models. We then create two tables. One, `crawled_pages`, which stores
-raw and processed data from web crawls (including HTML, markdown, and
-metadata):
+First, we enable the `pgvector` extension, which allows for storing and querying high-dimensional vectors—essential for working with embeddings from language models. We then create two tables. One, `crawled_pages`, which stores raw and processed data from web crawls (including HTML, markdown, and metadata):
 ```sql
 -- Enable the pgvector extension to work with embedding vectors
 create extension vector;
@@ -89,12 +70,9 @@ create table documents (
 );
 ```
 
-The final part of the script defines a custom SQL function: `match_documents`. 
-It performs a vector similarity search using the `<=>` operator to compute cosine
-distance between the query embedding and stored document embeddings. 
+The final part of the script defines a custom SQL function: `match_documents`.  It performs a vector similarity search using the `<=>` operator to compute cosine distance between the query embedding and stored document embeddings. 
 
-Further, it supports optional filtering based on JSON metadata and returns the most similar
-documents sorted by relevance. This function enables efficient retrieval of contextually relevant 
+Further, it supports optional filtering based on JSON metadata and returns the most similar documents sorted by relevance. This function enables efficient retrieval of contextually relevant 
 content for use in our RAG pipeline.
 
 ```sql

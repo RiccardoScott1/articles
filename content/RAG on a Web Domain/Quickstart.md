@@ -98,7 +98,7 @@ First, we turn on a feature called `pgvector`, which allows the database to hand
 
 We set the embedding size to 768, because we’ll be using a Llama model called **nomic-embed-text**, which creates these AI-friendly representations of text.
 
-The script and more detail on setting up SupaBase is found here(LINK TO SUPABASE ARTICLE).
+The script and more detail on setting up Supabase is found [[Setting up N8N and Supabase for a Domain aware RAG App|here]].
 ![[supabase_init.png]]
 
 ### **Crawler**
