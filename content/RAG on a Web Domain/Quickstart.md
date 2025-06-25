@@ -1,6 +1,7 @@
-# **Beyond Typical RAG: Chat with the Full Content of Any Website**
+---
+title: "Beyond Typical RAG: Chat with the Full Content of Any Website"
+---
 *Most RAG tutorials stop at a few documents. This guide shows you how to crawl, embed, and interact with entire domains using open-source tools like Crawl4AI, Supabase, n8n, and Ollama.*
-
 ![[title.png]]
 
 

@@ -1,3 +1,13 @@
+---
+title: Setting up N8N and Supabase for a Domain aware RAG App
+tags:
+  - RAG
+  - N8N
+  - Supabase
+  - AI
+  - Automation
+---
+
 *Combining crawl4AI, Supabase and N8N*
 ![[n8n_supabase_logo.png]]
 ## **Retrieval-Augmented Generation (RAG) - A brief overview**

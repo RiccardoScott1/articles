@@ -1,5 +1,11 @@
 ---
 title: Full Text Search in PostgreSQL
+tags:
+  - PostgreSQL
+  - FullTextSearch
+  - Tutorial
+  - Database
+  - SQL
 ---
 *A quick tutorial*
 

@@ -1,4 +1,13 @@
-# **Building a Geospatial Data Science Stack with Docker Compose**
+---
+title: Building a Geospatial Data Science Stack with Docker Compose
+tags:
+  - Docker
+  - PostGIS
+  - GDAL
+  - Jupyter
+  - GeospatialStack
+  - ETL
+---
 *PostGIS, GDAL, and Jupyter—All in One Click*
 
 In the world of geospatial data science, setting up your environment can often be as challenging as the analysis itself. Whether you're working with spatial databases, transforming raster and vector formats, or exploring geographic data in a notebook—your toolkit typically includes **PostGIS**, **GDAL**, and a **Jupyter** environment. But installing and configuring all of these tools locally can be a time-consuming headache, especially when dealing with different versions, system dependencies, or team collaboration.

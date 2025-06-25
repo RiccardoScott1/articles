@@ -1,4 +1,12 @@
-# Unlocking the Power of Spatial Clustering with DBSCAN
+---
+title: Unlocking the Power of Spatial Clustering with DBSCAN
+tags:
+  - DBSCAN
+  - MachineLearning
+  - SpatialAnalysis
+  - Clustering
+  - Geospatial
+---
 *DBSCAN, how it works, different implementations and which ones can handle non-point geometries as inputs?*
 
 When working with geospatial data, finding patterns and grouping similar points can unlock valuable insights — whether it’s detecting urban hotspots, mapping wildlife habitats, or analysing customer distribution. 

@@ -1,5 +1,11 @@
 ---
 title: Unlocking Powerful Search in PostgreSQL with Full Text Search
+tags:
+  - PostgreSQL
+  - FullTextSearch
+  - Database
+  - Search
+  - SQL
 ---
 *Boost PostgreSQL Performance with Built-In Full Text Search for Fast, Accurate SQL Queries*
 

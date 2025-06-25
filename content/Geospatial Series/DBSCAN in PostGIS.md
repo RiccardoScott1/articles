@@ -1,4 +1,12 @@
-# **Clustering Spatial Data with DBSCAN in PostGIS**
+---
+title: Clustering Spatial Data with DBSCAN in PostGIS
+tags:
+  - PostGIS
+  - DBSCAN
+  - SQL
+  - SpatialAnalysis
+  - MachineLearning
+---
 *PostGIS DBSCAN Tutorial: Cluster Building Polygons with SQL, Not Code*
 
 Looking to cluster building footprints or other non-point geometries directly in your PostGIS database? This tutorial shows how to use the `ST_ClusterDBSCAN` function to run DBSCAN clustering in SQL—without exporting to Python or GIS tools. 

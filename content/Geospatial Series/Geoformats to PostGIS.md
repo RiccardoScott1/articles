@@ -1,4 +1,13 @@
-# Managing and Converting Geospatial Data with PostGIS and ogr2ogr
+---
+title: Managing and Converting Geospatial Data with PostGIS and ogr2ogr
+tags:
+  - PostGIS
+  - GDAL
+  - DataConversion
+  - Geoformats
+  - GIS
+  - ETL
+---
 *A Practical Guide to Converting, Importing, and Exporting Geospatial Data with GDAL’s `ogr2ogr` Tool*
 
 ## Intro

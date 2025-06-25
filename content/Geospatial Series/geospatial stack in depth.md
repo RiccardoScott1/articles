@@ -1,4 +1,13 @@
-# A Simple Geospatial Setup
+---
+title: A Simple Geospatial Setup
+tags:
+  - Docker
+  - PostGIS
+  - GDAL
+  - GeospatialStack
+  - DevOps
+  - ETL
+---
 *A streamlined, containerised setup for geospatial data projects using Docker Compose.* 
 
 By integrating a PostGIS database for geospatial data storage, a GDAL-powered client for data processing, and JupyterLab for interactive analysis, this setup provides a robust and modular solution for geospatial workflows. With persistent data storage, seamless service communication, and custom Dockerfiles, it simplifies tasks like ETL pipelines, database management, and advanced visualization. Whether you're a GIS professional or a data scientist, this guide offers a scalable and reproducible foundation to enhance your geospatial projects.

@@ -1,6 +1,8 @@
-# **From Crawl to Context: Building a RAG-Ready Dataset with Crawl4AI**
-*A hands-on guide to turning any website into structured, vectorised knowledge—ready for your AI to reason over.*
+---
+title: "From Crawl to Context: Building a RAG-Ready Dataset with Crawl4AI"
+---
 
+*A hands-on guide to turning any website into structured, vectorised knowledge—ready for your AI to reason over.*
 ![[crawl4ai_logo.png]]
 
 Here we present a simple setup to perform a breadth-first crawl of a given web-domain, 

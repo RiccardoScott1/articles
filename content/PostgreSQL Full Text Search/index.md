@@ -14,7 +14,7 @@ Master PostgreSQL's built-in full-text search capabilities to implement powerful
 
 **[[Full Text Search in PosgreSQL|Full Text Search in PostgreSQL]]** - Comprehensive guide covering FTS fundamentals, configurations, indexing strategies, and ranking systems.
 
-**[[Full Text Search in PosgreSQL Tutorial|Full Text Search Tutorial]]** - Hands-on tutorial with practical examples, weighted indexing, and query optimization techniques.
+**[[Full Text Search in PosgreSQL Tutorial|Full Text Search Tutorial]]** - Hands-on tutorial with practical examples, weighted indexing, and query optimisation techniques.
 
 ## What You'll Learn
 
