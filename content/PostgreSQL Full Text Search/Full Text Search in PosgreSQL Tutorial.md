@@ -1,4 +1,6 @@
-# Full Text Search in PostgreSQL
+---
+title: Full Text Search in PostgreSQL
+---
 *A quick tutorial*
 
 In our detailed article on [[Full Text Search in PosgreSQL|Full Text Search (FTS) in PostgreSQL]] we compare search-engines like Elasticsearch or Solr to PostgreSQL FTS, go through configurations, weighting, indexing, briefly explaining the GIN (Generalised Inverted Index), core functions, and ranking results. 

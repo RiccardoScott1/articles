@@ -1,4 +1,6 @@
-# **Unlocking Powerful Search in PostgreSQL with Full Text Search**
+---
+title: Unlocking Powerful Search in PostgreSQL with Full Text Search
+---
 *Boost PostgreSQL Performance with Built-In Full Text Search for Fast, Accurate SQL Queries*
 
 Looking to implement powerful search functionality without relying on external tools like Elasticsearch or Solr? 
