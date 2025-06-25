@@ -1,5 +1,5 @@
 ---
-title: Own the Stack: Deploying Ollama Models on DigitalOcean
+title: Own the Stack | Deploying Ollama Models on DigitalOcean
 tags:
   - Ollama
   - DigitalOcean
