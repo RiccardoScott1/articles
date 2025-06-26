@@ -349,11 +349,14 @@ python src/main.py
 ## First results
 If you open your Supabase project you should start seeing the `crawled_pages` 
 as well as the `documents` tables being populated. 
+**crawled_pages table in Supabase**
+![[crawled_pages.png|crawled pages table in supabase]]
 
-If you alreadt set up Supabase and N8N - (see [[Setting up N8N and Supabase for a Domain aware RAG App]]) -  you can now go over to your n8n workflow, open the chat node and start asking questions about the domain you are scraping.
+**documents table in Supabase**
+![[documents.png| Documents table in Supabase]]
 
+If you already set up Supabase and N8N - (see [[Setting up N8N and Supabase for a Domain aware RAG App]]) -  you can now go over to your n8n workflow, open the chat node and start asking questions about the domain you are scraping.
 
 ## **Conclusion**
-
 With just a few lines of code and the right tooling, you've now built a complete pipeline that crawls an entire domain, semantically splits and embeds its content, and stores it in a vector database—ready for powerful, retrieval-augmented AI. Whether you're indexing your company's website or preparing content for a domain-specific chatbot, Crawl4AI + Supabase + Ollama gives you a lean, production-ready stack to turn any website into a RAG-ready knowledge base. Happy crawling!
 
