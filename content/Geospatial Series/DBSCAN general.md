@@ -1,11 +1,13 @@
 ---
 title: Unlocking the Power of Spatial Clustering with DBSCAN
 tags:
-  - DBSCAN
-  - MachineLearning
-  - SpatialAnalysis
-  - Clustering
-  - Geospatial
+  - dbscan
+  - machine-learning
+  - spatial-analysis
+  - clustering
+  - geospatial
+  - data-science
+  - algorithms
 ---
 *DBSCAN, how it works, different implementations and which ones can handle non-point geometries as inputs?*
 

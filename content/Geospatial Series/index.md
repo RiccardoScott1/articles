@@ -1,11 +1,14 @@
 ---
 title: Geospatial Data Science with PostGIS, Docker, and OpenStreetMap
 tags:
-  - Geospatial
-  - PostGIS
-  - DBSCAN
-  - DOCKER
-  - OpenStreetMap
+  - geospatial
+  - postgis
+  - dbscan
+  - docker
+  - openstreetmap
+  - spatial-analysis
+  - data-science
+  - gis
 ---
 
 A collection of hands-on, developer-friendly tutorials for working with geospatial data. Whether you're clustering buildings, building a spatial analytics environment, or extracting data from OpenStreetMap — these guides will help you do it efficiently with open tools like **PostGIS**, **GDAL**, **Docker**, and the **Overpass API**.

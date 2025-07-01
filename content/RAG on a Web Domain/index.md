@@ -1,12 +1,16 @@
 ---
 title: RAG on a Web Domain
 tags:
-  - RAG
-  - LLM
-  - OpenSource
-  - AI
-  - Ollama
-  - Crawl4AI
+  - rag
+  - llm
+  - open-source
+  - ai
+  - ollama
+  - crawl4ai
+  - n8n
+  - supabase
+  - vector-database
+  - embeddings
 ---
 
 🚀 A full-stack RAG pipeline that lets you *chat with the entire content of any website*.

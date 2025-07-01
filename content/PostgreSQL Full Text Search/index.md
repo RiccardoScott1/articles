@@ -1,11 +1,13 @@
 ---
 title: PostgreSQL Full Text Search
 tags:
-  - PostgreSQL
-  - FullTextSearch
-  - Database
-  - SQL
-  - Search
+  - postgresql
+  - full-text-search
+  - database
+  - sql
+  - search
+  - performance
+  - indexing
 ---
 
 Master PostgreSQL's built-in full-text search capabilities to implement powerful search functionality without external dependencies.
