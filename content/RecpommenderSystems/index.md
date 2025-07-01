@@ -21,6 +21,8 @@ tags:
   - personalisation
 ---
 
+
+# WIP 
 # Recommender Systems
 
 A comprehensive deep dive into building production-scale recommender systems using graph databases, covering architecture design, data engineering, and multiple algorithmic approaches.

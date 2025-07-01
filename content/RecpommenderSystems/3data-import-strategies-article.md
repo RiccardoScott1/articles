@@ -23,6 +23,7 @@ tags:
   - python
   - docker
   - machine-learning
+draft: "true"
 ---
 *Transaction-based imports using Neo4j drivers versus bulk CSV imports using Neo4j admin tools*
 
@@ -108,8 +109,6 @@ class DataTransferService:
 
 ### Performance Characteristics
 
-TODO check these numbers!! .............................................
-
 **Throughput**: 8,000-12,000 records per second
 **Memory Usage**: ~200MB for 10K record batches
 **Concurrency**: Single-threaded to avoid transaction conflicts
@@ -126,8 +125,6 @@ SET u.personaname = record.personaname
 Each transaction processes thousands of records atomically, balancing performance with consistency.
 
 ### Optimised Variants: Pandas vs. Polars
-
-TODO check these numbers!! .............................................
 
 We implemented two transaction-based approaches with different data processing libraries:
 
@@ -232,9 +229,6 @@ The bulk import leverages Neo4j's optimised internal data structures, bypassing 
 ### Compression and Storage Optimisation
 
 CSV files compress exceptionally well for graph data:
-
-TODO: check numbers!!!
-
 ```bash
 # Uncompressed CSV: 2.1GB
 # Gzipped CSV: 180MB (91% compression)
@@ -246,23 +240,20 @@ The compression dramatically reduces I/O time.
 
 ## Performance Benchmarking: Real-World Results
 
-TODO: check numbers!!!
-
-
 We benchmarked both approaches using production Steam data across different dataset sizes:
 ### Dataset Characteristics
-- **Users**: 200,000 Steam profiles
-- **Games**: 50,000 game titles  
-- **User-Game Relationships**: 15 million playtime records
-- **Social Relationships**: 2 million friend connections
+- **Users**: 250,000 Steam profiles
+- **Games**: 18,000 game titles  
+- **User-Game Relationships**: 1.2 million playtime records
+- **Social Relationships**: 1 million friend connections
 
 ### Transaction-Based Import Results
 
 ```mermaid
 graph LR
-    A[Users<br/>200K records<br/>45 seconds] --> B[Games<br/>50K records<br/>12 seconds]
-    B --> C[Relationships<br/>15M records<br/>25 minutes]
-    C --> D[Total Time<br/>~30 minutes]
+    A[Users<br/>250K records] --> B[Games<br/>18K records]
+    B --> C[Relationships<br/>1.2M records]
+    C --> D[Total Time<br/>~12 minutes]
     
     style A fill:#4caf50
     style B fill:#4caf50  
@@ -270,19 +261,15 @@ graph LR
     style D fill:#2196f3
 ```
 
-**Detailed Breakdown**:
-- Users: 200K records in 45 seconds (4,400 records/second)
-- Games: 50K records in 12 seconds (4,100 records/second)
-- Relationships: 15M records in 25 minutes (10,000 records/second)
-- **Total**: 30 minutes for complete database load
+ **Total**: about 12 minutes for complete database load
 
 ### Bulk CSV Import Results
 
 ```mermaid
 graph LR
-    A[CSV Export<br/>All entities<br/>3 minutes] --> B[Bulk Import<br/>All relationships<br/>2 minutes]
+    A[CSV Export<br/>All entities<br/><1 minute] --> B[Bulk Import<br/>All relationships<br/>2 minutes]
     B --> C[Database Start<br/>Index creation<br/>1 minute]  
-    C --> D[Total Time<br/>6 minutes]
+    C --> D[Total Time<br/>4 minutes]
     
     style A fill:#ffeb3b
     style B fill:#ff5722
@@ -291,23 +278,31 @@ graph LR
 ```
 
 **Detailed Breakdown**:
-- CSV Export: 3 minutes (PostgreSQL → gzipped CSV)
+- CSV Export: <1 minute (PostgreSQL → gzipped CSV)
 - Neo4j Import: 2 minutes (125,000 records/second average)
 - Database Startup: 1 minute (constraint and index creation)
-- **Total**: 6 minutes for complete database load
+- **Total**: <4 minutes for complete database load
+```bash
+IMPORT DONE in 2m 33s 216ms. 
+Imported:
+  334051 nodes
+  1323110 relationships
+  3073595 properties
+Peak memory usage: 1.036GiB
+```
 
 ### Performance Comparison Summary
 
-| Metric | Transaction-Based | Bulk CSV Import |
-|--------|------------------|-----------------|
-| **Total Time** | 30 minutes | 6 minutes |
-| **Throughput** | 10K records/sec | 125K records/sec |
-| **Memory Usage** | 200MB sustained | <50MB peak |
-| **Database Downtime** | None | 6 minutes |
-| **Error Recovery** | Excellent | Limited |
-| **Incremental Updates** | Native | Not supported |
+| Metric                  | Transaction-Based | Bulk CSV Import  |
+| ----------------------- | ----------------- | ---------------- |
+| **Total Time**          | 12 minutes        | 4 minutes        |
+| **Throughput**          | 8K records/sec    | 125K records/sec |
+| **Memory Usage**        | 200MB sustained   | 1GB peak         |
+| **Database Downtime**   | None              | 2 minutes        |
+| **Error Recovery**      | Excellent         | Limited          |
+| **Incremental Updates** | Native            | Not supported    |
 
-The bulk approach delivers **12x faster throughput** but requires complete database downtime.
+The bulk approach delivers **12x faster throughput** but requires complete database downtime, and more preprocessing time. The bigger the dataset the more you'll notice the difference.
 
 ## Memory Management and Scaling Strategies
 

@@ -22,6 +22,7 @@ tags:
   - steam
   - production-systems
   - machine-learning
+draft: "true"
 ---
 *Design patterns to make your Graph database serve as feature store, model store, and serving layer*
 
@@ -43,35 +44,7 @@ Our Steam recommender handles all of this through a layered schema design that s
 
 The foundation layer models the essential Steam gaming entities and their natural relationships:
 
-```mermaid
-graph TD
-    U[USER] -->|PLAYED| A[APP]
-    U -->|FRIENDS| U2[USER]
-    U -->|MEMBER_OF| G[GROUP]
-    A -->|HAS_GENRE| GE[GENRE]
-    A -->|DEVELOPED_BY| D[DEVELOPER]
-    A -->|IS_TYPE| T[TYPE]
-    A -->|REQUIRED_AGE| RA[REQUIRED_AGE]
-    A -->|IS_MULTIPLAYER| MP[N_PLAYERS]
-    
-    style U fill:#e1f5fe
-    style A fill:#f3e5f5
-    style G fill:#e8f5e8
-    style GE fill:#fff3e0
-    style D fill:#fce4ec
-    style T fill:#f1f8e9
-```
-
-### Node Design Principles
-
-**Users as Activity Hubs**
-```cypher
-CREATE (u:USER {
-    steamid: "76561198001234567",
-    personaname: "GamerTx",
-    timecreated: datetime("2010-03-15T10:30:00Z")
-})
-```
+![[base_graph_schema.png]]
 
 Users anchor the entire graph. Every recommendation algorithm traces paths from users to discover similarity patterns. We keep user nodes lean—just identifier, display name, and creation timestamp. Rich profile data gets modelled as separate connected nodes.
 
@@ -340,17 +313,6 @@ At scale, schema design impacts memory and storage:
 
 Undirected relationships use less storage but require careful query planning. Directed relationships enable faster traversals in one direction.
 
-**Property Storage Patterns**
-
-```cypher
--- Frequently queried properties: store on nodes
-CREATE (a:APP {title: "Cyberpunk 2077", price: 59.99})
-
--- Rarely queried properties: store on relationships
-CREATE (u:USER)-[:PLAYED {last_played: datetime(), hours: 127.5}]->(a:APP)
-```
-
-Node properties are faster to query but use more memory. Relationship properties are storage-efficient but slower to access. TODO check if this is true.......
 
 **Batch Import Optimisation**
 

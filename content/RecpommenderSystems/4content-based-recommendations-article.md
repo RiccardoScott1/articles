@@ -23,6 +23,7 @@ tags:
   - hybrid-systems
   - explainable-ai
   - feature-store
+draft: "true"
 ---
 *Treating features as graph nodes rather than matrix columns*
 
@@ -207,6 +208,8 @@ This pattern enables efficient similarity computation between users and items in
 Traditional content-based filtering computes similarities using matrix operations. Our system leverages Neo4j's Graph Data Science library for massively parallel vector similarity computation.
 
 ### Graph Projection for Feature Vectors
+
+### todo -----------------------
 
 ```cypher
 -- Project users and apps with feature vectors into memory
