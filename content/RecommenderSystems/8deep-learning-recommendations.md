@@ -612,7 +612,3 @@ In our next article, we'll explore how to systematically evaluate and compare th
 Deep learning transforms recommendation systems from pattern matching to genuine understanding of user preferences. The Two-Tower architecture provides scalable serving whilst NCF enables complex interaction modelling. When combined with our rich Neo4j feature ecosystem, these approaches deliver recommendation systems that are both performant and interpretable.
 
 The Steam recommender system demonstrates how classical techniques, graph databases, and modern deep learning can work in harmony, each contributing their strengths to create a robust, production-ready recommendation engine.
-
----
-
-*This article is part of a comprehensive series on building production-ready recommender systems. The complete implementation, including PyTorch Lightning models and serving infrastructure, is available in the Steam Recommender Systems repository.*
