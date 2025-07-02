@@ -21,7 +21,9 @@ tags:
   - dot-product-similarity
   - neural-cf
   - mlp
+draft: true
 ---
+
 *When neural networks learn what linear algebra cannot*
 
 Having explored matrix factorisation and graph-based approaches, we now venture into the realm of deep learning for recommendation systems. This article examines how neural architectures, particularly Two-Tower models and Neural Collaborative Filtering (NCF), can capture complex user-item interactions whilst leveraging the rich feature ecosystem we've built with Neo4j and PyTorch Lightning.
