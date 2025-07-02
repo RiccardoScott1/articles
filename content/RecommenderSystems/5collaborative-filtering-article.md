@@ -360,7 +360,7 @@ def build_interaction_matrix(df: pd.DataFrame) -> csr_matrix:
 
 ### Multiple Matrix Factorization Algorithms
 
-Our system implements seven different factorization approaches:
+Our system implements seven different factorization approaches (for more detail [[7matrix-factorization-approaches|see here]]):
 
 **Alternating Least Squares (ALS)**:
 ```python
@@ -530,39 +530,6 @@ WHERE feature_overlap >= 2
 RETURN user.steamid, new_app.title
 ```
 
-## Real-World Performance Results
-
-Our collaborative filtering implementation delivers production-ready performance across the complete Steam dataset:
-
-### Dataset Characteristics
-- **Users**: 200,000 active Steam accounts
-- **Games**: 50,000 games and applications
-- **Interactions**: 15 million user-game relationships
-- **Similarity relationships**: 2.1 million (before cutoff filtering)
-
-### Algorithm Performance Comparison
-
-| Algorithm | Computation Time | Memory Usage | Similarity Count | Query Time |
-|-----------|------------------|--------------|------------------|------------|
-| **Unweighted Jaccard** | 8 minutes | 800MB | 890K | 25ms |
-| **Weighted Jaccard** | 12 minutes | 1.2GB | 890K | 30ms |
-| **User-normalized** | 15 minutes | 1.2GB | 780K | 28ms |
-| **App-normalized** | 14 minutes | 1.2GB | 820K | 27ms |
-| **ALS Matrix Factorization** | 6 minutes | 2.1GB | 2M | 35ms |
-| **BPR Matrix Factorization** | 18 minutes | 2.1GB | 2M | 35ms |
-
-### Recommendation Quality Metrics
-
-**Coverage and Novelty**:
-- **Catalog coverage**: 82% of games appear in collaborative recommendations
-- **User coverage**: 95% of users receive personalized recommendations
-- **Novelty score**: 0.73 (recommendations include non-obvious choices)
-
-**Business Impact**:
-- **Click-through rate**: 8.9% for collaborative recommendations
-- **Purchase conversion**: 2.1% for item-based collaborative filtering  
-- **User engagement**: 15% increase in session length with collaborative recommendations
-
 ## Integration with Hybrid Recommendation Systems
 
 Collaborative filtering rarely operates in isolation. Our system integrates seamlessly with content-based and deep learning approaches:
@@ -597,55 +564,7 @@ def export_collaborative_features():
     return gds.run_cypher(query)
 ```
 
-Collaborative similarities become input features for two-tower and transformer-based models.
-
-## Future Directions: Advanced Graph Algorithms
-
-Our collaborative filtering foundation enables exploration of cutting-edge graph algorithms:
-
-### Graph Neural Networks for Collaborative Filtering
-
-```python
-# GNN-based collaborative filtering architecture
-class CollaborativeGNN(nn.Module):
-    def __init__(self, num_users, num_items, embedding_dim=64):
-        self.user_embeddings = nn.Embedding(num_users, embedding_dim)
-        self.item_embeddings = nn.Embedding(num_items, embedding_dim)
-        self.gnn_layers = GraphSAGE(embedding_dim, embedding_dim, num_layers=3)
-    
-    def forward(self, user_item_edge_index):
-        # Learn embeddings through graph message passing
-        x = torch.cat([self.user_embeddings.weight, self.item_embeddings.weight])
-        h = self.gnn_layers(x, user_item_edge_index)
-        return h
-```
-
-### Temporal Collaborative Filtering
-
-```cypher
--- Time-aware collaborative filtering with temporal weights
-MATCH (user:USER)-[p:PLAYED]->(app:APP)
-WITH user, app, p.playtime_forever * exp(-0.1 * duration.inDays(p.last_played, datetime()).days) as temporal_weight
--- Formula: playtime * e^(-0.1 * days_since_last_played)
-MERGE (user)-[:TEMPORAL_PLAYED {weight: temporal_weight}]->(app)
-```
-
-**Temporal Weighting Formula**:
-$$\text{temporal\_weight} = \text{playtime} \times e^{-0.1 \times \text{days\_since\_last\_played}}$$
-
-Recent interactions receive higher weights, capturing evolving user preferences.
-
-### Multi-Type Collaborative Filtering
-
-```cypher
--- Collaborative filtering across multiple relationship types
-MATCH (user:USER)-[:PLAYED|WISHLIST|REVIEW]->(item)
-WITH user, item, count(*) as interaction_strength
-WHERE interaction_strength >= 2
-MERGE (user)-[:MULTI_INTERACTION {strength: interaction_strength}]->(item)
-```
-
-Combine multiple interaction signals for richer collaborative patterns.
+Collaborative similarities become input features for todo add link[[two-tower]] and transformer-based models.
 
 ## Conclusion: Graph-Native Collaborative Filtering at Scale
 

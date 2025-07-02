@@ -283,66 +283,6 @@ RETURN group.groupname, similarity
 
 The same embedding space powers all three recommendation types without additional computation.
 
-## Performance Comparison: FastRP vs Traditional Approaches
-
-FastRP's universal approach delivers superior performance across multiple dimensions compared to traditional embedding methods:
-
-### Computational Efficiency
-
-```mermaid
-graph LR
-    A[Traditional<br/>Separate Embeddings] --> B[User Embeddings<br/>15 minutes]
-    B --> C[Item Embeddings<br/>12 minutes]
-    C --> D[Group Embeddings<br/>8 minutes]
-    D --> E[Total: 35 minutes]
-    
-    F[FastRP<br/>Universal Embeddings] --> G[All Entity Types<br/>18 minutes]
-    G --> H[5 Similarity Types<br/>6 minutes]
-    H --> I[Total: 24 minutes]
-    
-    style A fill:#ffeb3b
-    style F fill:#4caf50
-    style E fill:#ff5722
-    style I fill:#4caf50
-```
-
-**Detailed Performance Metrics**:
-todo: check numbers.....................................................................................
-
-| Approach | Embedding Time | Similarity Computation | Total Time | Memory Usage |
-|----------|----------------|------------------------|------------|--------------|
-| **Separate Embeddings** | 35 minutes | 15 minutes | 50 minutes | 4.2GB |
-| **FastRP Universal** | 18 minutes | 6 minutes | 24 minutes | 2.1GB |
-| **Performance Gain** | 52% faster | 60% faster | 52% faster | 50% reduction |
-
-### Recommendation Quality Metrics
-
-FastRP's universal embeddings achieve competitive quality across all recommendation types:
-
-**Game Recommendations**:
-- **Precision@10**: 0.34 (vs 0.31 content-based, 0.29 collaborative)
-- **Diversity**: 0.67 (higher diversity due to cross-type signals)
-- **Novelty**: 8.5 (discovers less obvious recommendations)
-
-**Friend Recommendations**:
-- **Precision@10**: 0.28 (first time cross-type friend recommendations)
-- **Social Clustering**: 0.73 (maintains social network structure)
-
-**Group Recommendations**:
-- **Precision@10**: 0.31 (discovers relevant communities)
-- **Coverage**: 0.82 (recommends from 82% of available groups)
-
-### Link Prediction Performance
-
-Our FastRP implementation achieves exceptional link prediction performance in controlled experiments:
-
-**Link Prediction Results**:
-- **AUCPR**: 0.962 (Area Under Precision-Recall Curve)
-- **MRR**: 0.17 (Mean Reciprocal Rank)
-- **MAP@10**: 0.003 (Mean Average Precision at 10)
-
-These metrics demonstrate FastRP's ability to predict future user-game interactions with high accuracy.
-
 ## Advanced Features: Link Prediction and Multi-Modal Learning
 
 FastRP embeddings enable sophisticated machine learning applications beyond basic similarity computation.
@@ -452,26 +392,6 @@ Our FastRP implementation delivers production-ready performance across the compl
 | **FastRP Computation** | 18 minutes | 2.1GB | 260K embeddings |
 | **Similarity Generation** | 6 minutes | 1.8GB | 2.3M similarity relationships |
 | **Total Pipeline** | 27 minutes | 2.1GB | Production-ready embeddings |
-
-### Cross-Type Recommendation Quality
-
-**Game Recommendations via FastRP**:
-- **Response time**: 35ms average
-- **Precision@10**: 0.34
-- **Coverage**: 78% of catalog appears in recommendations
-- **Novelty**: 8.5 (introduces non-obvious games)
-
-**Friend Recommendations**:
-- **Response time**: 42ms average  
-- **Precision@10**: 0.28
-- **Social network preservation**: 0.73 clustering coefficient
-- **Discovery rate**: 15% of recommendations lead to new friendships
-
-**Group Recommendations**:
-- **Response time**: 38ms average
-- **Precision@10**: 0.31
-- **Community relevance**: 0.82 topic alignment score
-- **Engagement**: 23% join rate for recommended groups
 
 ## Advanced Use Cases: Beyond Basic Recommendations
 
@@ -605,7 +525,6 @@ FastRP transforms the fundamental approach to recommendation systems by eliminat
 **Production impact**:
 - 260,000 entities embedded in 27 minutes
 - Sub-50ms cross-type recommendations
-- 96.2% AUCPR for link prediction accuracy
 - Novel recommendation types impossible with traditional approaches
 
 The strategic insight extends beyond recommendation systems. Universal embeddings become the foundation for multi-modal AI systems where users, content, communities, and contexts interact fluidly. They enable recommendation engines that understand not just what users like, but how they relate to entire digital ecosystems.

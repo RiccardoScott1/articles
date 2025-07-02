@@ -23,7 +23,7 @@ tags:
   - python
   - docker
   - machine-learning
-draft: true
+draft: false
 ---
 *Transaction-based imports using Neo4j drivers versus bulk CSV imports using Neo4j admin tools*
 
