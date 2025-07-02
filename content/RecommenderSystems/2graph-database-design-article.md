@@ -22,7 +22,7 @@ tags:
   - steam
   - production-systems
   - machine-learning
-draft: "true"
+draft: "false"
 ---
 *Design patterns to make your Graph database serve as feature store, model store, and serving layer*
 
@@ -329,8 +329,6 @@ UNWIND with MERGE operations enable transaction-efficient bulk loading while pre
 ## Real-World Performance Results
 
 Our schema design delivers production performance across multiple recommendation algorithms:
-
-TODO: verify all these numbers...................................................
 
 **Query Performance**
 - User recommendations: <50ms for 10 results

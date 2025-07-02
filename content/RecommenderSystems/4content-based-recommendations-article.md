@@ -31,7 +31,7 @@ Content-based filtering is the foundation of explainable recommendations. When N
 
 This deep dive reveals how we transformed Steam's game metadata into sparse feature vectors that power real-time recommendations. The key insight: treating features as graph nodes rather than matrix columns unlocks both performance and interpretability at scale.
 
-Our implementation processes 50,000 games across 200+ genres and types, creating personalized feature vectors for 200,000 users—all within Neo4j's graph structure.
+Our implementation processes 50,000 games across 200+ genres and types, creating personalised feature vectors for 200,000 users—all within Neo4j's graph structure.
 
 ## The Feature Engineering Challenge
 
@@ -43,7 +43,7 @@ Traditional content-based systems face three fundamental problems:
 
 **Scalability Bottlenecks**: Computing similarities across millions of users and items with traditional matrix operations becomes computationally prohibitive.
 
-Our graph-based approach solves all three by modeling features as first-class entities with relationships.
+Our graph-based approach solves all three by modelling features as first-class entities with relationships.
 
 ## From Properties to Graph Features
 
@@ -148,9 +148,9 @@ User vectors aggregate preferences from their game interactions:
 -- Create user preference vectors from played games
 MATCH (user:USER)-[p:PLAYED]->(app:APP)-[:HAS_GENRE|DEVELOPED_BY|IS_TYPE]->(feature:FEATURE)
 WITH user, feature, sum(p.playtime_forever) as preference_weight
-WITH user, feature, preference_weight / user.total_playtime as normalized_preference
+WITH user, feature, preference_weight / user.total_playtime as normalised_preference
 
--- Build normalized preference vectors
+-- Build normalised preference vectors
 MATCH (feature:FEATURE)
 WITH feature ORDER BY id(feature)
 WITH collect(feature) as ordered_features
@@ -161,7 +161,7 @@ SET user.features = [
 ]
 ```
 
-This creates user preference vectors like `[0.3, 0.0, 0.7, 0.1...]` where values represent normalized preference strength for each feature.
+This creates user preference vectors like `[0.3, 0.0, 0.7, 0.1...]` where values represent normalised preference strength for each feature.
 
 ## The LIKES Relationship Pattern
 
@@ -209,8 +209,6 @@ Traditional content-based filtering computes similarities using matrix operation
 
 ### Graph Projection for Feature Vectors
 
-### todo -----------------------
-
 ```cypher
 -- Project users and apps with feature vectors into memory
 CALL gds.graph.project(
@@ -223,7 +221,7 @@ CALL gds.graph.project(
 )
 ```
 
-This loads only nodes with computed feature vectors into Neo4j's optimized in-memory graph representation.
+This loads only nodes with computed feature vectors into Neo4j's optimised in-memory graph representation.
 
 ### KNN Similarity Computation
 
@@ -243,14 +241,13 @@ CALL gds.knn.write(
 **Performance characteristics**:
 - **Throughput**: 1M+ similarity comparisons per second
 - **Memory efficiency**: Sparse vector representation reduces memory usage by 90%
-- **Parallelization**: 4-core concurrent processing
-- **Incremental updates**: Only recompute similarities for changed nodes
+- **Parallelisation**: 4-core concurrent processing
 
 The result: `SIMILAR_SPARSE_FEATURES` relationships connecting similar users and apps with computed similarity scores.
 
 ## Three Recommendation Strategies
 
-Our implementation provides three different content-based recommendation approaches, each optimized for different scenarios:
+Our implementation provides three different content-based recommendation approaches, each optimised for different scenarios:
 
 ### Strategy 1: Direct Feature Matching
 
@@ -289,14 +286,15 @@ RETURN app.title, feature_overlap
 
 ```mermaid
 graph LR
-    A[User: Alice<br/>features: [0.3,0.7,0.1...]] 
-    A -.->|SIMILAR_SPARSE_FEATURES<br/>score: 0.85| B[APP: Cyberpunk<br/>features: [0.2,0.8,0.0...]]
-    A -.->|SIMILAR_SPARSE_FEATURES<br/>score: 0.73| C[APP: Witcher 3<br/>features: [0.1,0.9,0.0...]]
+    A["User: Alice<br/>features: 0.3,0.7,0.1..."] 
+    A -.->|"SIMILAR_SPARSE_FEATURES<br/>score: 0.85"| B["APP: Cyberpunk<br/>features: 0.2,0.8,0.0..."]
+    A -.->|"SIMILAR_SPARSE_FEATURES<br/>score: 0.73"| C["APP: Witcher 3<br/>features: 0.1,0.9,0.0..."]
     
     style A fill:#e1f5fe
     style B fill:#f3e5f5
     style C fill:#f3e5f5
 ```
+
 
 **Implementation**:
 ```cypher
@@ -309,7 +307,7 @@ LIMIT 10
 RETURN app.title, similarity
 ```
 
-**Use case**: Personalized recommendations based on user's overall preference profile.
+**Use case**: Personalised recommendations based on user's overall preference profile.
 
 ### Strategy 3: Collaborative Content Hybrid
 
@@ -386,25 +384,25 @@ SET p.recency_weight = 1.0 / (1.0 + duration.inDays(p.last_played, datetime()).d
 
 These temporal features help identify trending preferences versus long-term tastes.
 
-### Normalized Playtime Features
+### Normalised Playtime Features
 
-Raw playtime varies dramatically between users. We implement multiple normalization strategies:
+Raw playtime varies dramatically between users. We implement multiple normalisation strategies:
 
 ```cypher
--- User-normalized playtime (relative to user's total playtime)
+-- User-normalised playtime (relative to user's total playtime)
 MATCH (user:USER)-[p:PLAYED]-(app:APP)
-SET p.user_normalized = p.playtime_forever / user.total_playtime
+SET p.user_normalised = p.playtime_forever / user.total_playtime
 
--- App-normalized playtime (relative to app's average playtime)  
+-- App-normalised playtime (relative to app's average playtime)  
 MATCH (user:USER)-[p:PLAYED]-(app:APP)
-SET p.app_normalized = p.playtime_forever / app.average_playtime
+SET p.app_normalised = p.playtime_forever / app.average_playtime
 ```
 
-Normalized features enable fair comparison across different user activity levels.
+Normalised features enable fair comparison across different user activity levels.
 
-## Performance Optimization and Scalability
+## Performance Optimisation and Scalability
 
-Content-based recommendations must scale to real-time serving requirements. Our optimizations ensure sub-100ms response times:
+Content-based recommendations must scale to real-time serving requirements. Our optimisations ensure sub-100ms response times:
 
 ### Projection-Based Isolation
 
@@ -454,46 +452,6 @@ CALL gds.knn.write.estimate(
 
 Incremental updates maintain freshness without full recomputation.
 
-## Real-World Performance Results
-
-Our content-based implementation delivers production-ready performance across the full Steam dataset:
-
-### Dataset Characteristics
-- **Apps with features**: 45,000 games
-- **Users with preferences**: 180,000 active users  
-- **Feature dimensions**: 247 unique features
-- **Feature vectors**: 225,000 sparse vectors (users + apps)
-
-### Performance Metrics
-
-```mermaid
-graph LR
-    A[Feature Vector<br/>Creation<br/>4 minutes] --> B[Similarity<br/>Computation<br/>12 minutes]
-    B --> C[Recommendation<br/>Serving<br/>< 50ms]
-    
-    style A fill:#4caf50
-    style B fill:#ff9800
-    style C fill:#2196f3
-```
-
-**Detailed Breakdown**:
-- **Feature vector creation**: 4 minutes (56,000 vectors/minute)
-- **KNN similarity computation**: 12 minutes (18,750 comparisons/second)
-- **Recommendation query time**: 30-50ms average
-- **Memory usage**: 1.2GB for complete feature projection
-
-### Recommendation Quality Metrics
-
-**Coverage and Diversity**:
-- **Catalog coverage**: 78% of games appear in recommendations
-- **Feature diversity**: Average 4.2 different feature types per recommendation set
-- **Explanation coverage**: 95% of recommendations have clear feature-based explanations
-
-**User Engagement**:
-- **Click-through rate**: 12.3% for feature-explained recommendations
-- **Purchase conversion**: 3.4% for content-based suggestions
-- **User satisfaction**: 4.2/5 rating for recommendation relevance
-
 ## Handling Cold Start and Edge Cases
 
 Content-based systems excel at cold start scenarios but require careful engineering for edge cases:
@@ -513,22 +471,6 @@ SET user.features = demographic_features
 ```
 
 New users get preference vectors based on similar demographic users.
-
-### New Item Cold Start
-
-```cypher
--- Bootstrap new games with metadata-only features
-MATCH (app:APP {appid: $new_game_id})-[:HAS_GENRE|DEVELOPED_BY]->(feature:FEATURE)
-WITH app, collect(feature) as app_features
-MATCH (feature:FEATURE)
-WITH app, feature ORDER BY id(feature)
-WITH app, [feature IN all_features | 
-    CASE WHEN feature IN app_features THEN 1.0 ELSE 0.0 END
-] as metadata_features
-SET app.features = metadata_features
-```
-
-New games get feature vectors based purely on metadata, no user interaction required.
 
 ### Sparse Feature Handling
 

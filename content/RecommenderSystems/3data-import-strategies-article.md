@@ -267,9 +267,9 @@ graph LR
 
 ```mermaid
 graph LR
-    A[CSV Export<br/>All entities<br/><1 minute] --> B[Bulk Import<br/>All relationships<br/>2 minutes]
+    A[CSV Export<br/>All entities<br/><1 minute] --> B[Bulk Import<br/>All relationships<br/>30 seconds]
     B --> C[Database Start<br/>Index creation<br/>1 minute]  
-    C --> D[Total Time<br/>4 minutes]
+    C --> D[Total Time<br/><2 minutes]
     
     style A fill:#ffeb3b
     style B fill:#ff5722
@@ -279,11 +279,11 @@ graph LR
 
 **Detailed Breakdown**:
 - CSV Export: <1 minute (PostgreSQL → gzipped CSV)
-- Neo4j Import: 2 minutes (125,000 records/second average)
+- Neo4j Import: 30 seconds (125,000 records/second average)
 - Database Startup: 1 minute (constraint and index creation)
-- **Total**: <4 minutes for complete database load
+- **Total**: <2 minutes for complete database load
 ```bash
-IMPORT DONE in 2m 33s 216ms. 
+IMPORT DONE in 31s 985ms. 
 Imported:
   334051 nodes
   1323110 relationships
@@ -295,7 +295,7 @@ Peak memory usage: 1.036GiB
 
 | Metric                  | Transaction-Based | Bulk CSV Import  |
 | ----------------------- | ----------------- | ---------------- |
-| **Total Time**          | 12 minutes        | 4 minutes        |
+| **Total Time**          | 12 minutes        | 2 minutes        |
 | **Throughput**          | 8K records/sec    | 125K records/sec |
 | **Memory Usage**        | 200MB sustained   | 1GB peak         |
 | **Database Downtime**   | None              | 2 minutes        |
