@@ -20,7 +20,7 @@ tags:
   - bipartite-graph
   - memory-optimisation
   - user-item-matrix
-draft: "true"
+draft: true
 ---
 *Leveraging Neo4j’s Graph Data Science library to compute real-time user-user and item-item similarities over 15 million interactions—no matrices, no bottlenecks, sub-30 ms query times.*
 

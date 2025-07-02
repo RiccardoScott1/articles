@@ -22,7 +22,7 @@ tags:
   - steam
   - production-systems
   - machine-learning
-draft: "false"
+draft: false
 ---
 *Design patterns to make your Graph database serve as feature store, model store, and serving layer*
 

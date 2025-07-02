@@ -21,7 +21,7 @@ tags:
   - production-systems
   - ranking
   - embeddings
-draft: "true"
+draft: true
 ---
 *When millions of interactions hide billion-dollar insights*
 

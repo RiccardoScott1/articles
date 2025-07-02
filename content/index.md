@@ -18,17 +18,17 @@ Welcome to a collection of hands-on, developer-friendly tutorials covering **rec
 
 ---
 
-## [[RecpommenderSystems/index|Recommender Systems]]
+## [[RecommenderSystems/index|Recommender Systems]]
 
 *Production-scale graph-based recommendation engines*
 
 Build sophisticated recommender systems using Neo4j, supporting multiple algorithms from content-based filtering to deep learning approaches.
 
 ### Key Topics:
-- **[[RecpommenderSystems/1architecture-overview-blueprint|Multi-Modal Architecture]]** - Unified API serving 15+ algorithms with microservices design
-- **[[RecpommenderSystems/2graph-database-design-article|Graph Database Design]]** - Schema patterns for performance and algorithm flexibility
-- **[[RecpommenderSystems/3data-import-strategies-article|Data Import Strategies]]** - Transaction vs bulk import performance comparison
-- **[[RecpommenderSystems/4content-based-recommendations-article|Content-Based Filtering]]** - Feature engineering and vector similarity with Neo4j GDS
+- **[[RecommenderSystems/1architecture-overview-blueprint|Multi-Modal Architecture]]** - Unified API serving 15+ algorithms with microservices design
+- **[[RecommenderSystems/2graph-database-design-article|Graph Database Design]]** - Schema patterns for performance and algorithm flexibility
+- **[[RecommenderSystems/3data-import-strategies-article|Data Import Strategies]]** - Transaction vs bulk import performance comparison
+- **[[RecommenderSystems/4content-based-recommendations-article|Content-Based Filtering]]** - Feature engineering and vector similarity with Neo4j GDS
 
 **Perfect for:** ML engineers, data scientists, and backend developers building recommendation engines at scale
 
