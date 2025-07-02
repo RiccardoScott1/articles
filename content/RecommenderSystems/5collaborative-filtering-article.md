@@ -319,7 +319,7 @@ RETURN recommended_app.title, weighted_score
 
 ## Matrix Factorization: Hybrid Graph-Matrix Approach
 
-Pure graph algorithms excel at interpretability but miss latent factors captured by matrix factorization. Our system implements a hybrid approach using the `implicit` library for matrix factorization while leveraging Neo4j for data management.
+Pure graph algorithms excel at interpretability but miss latent factors captured by matrix factorization. Our system implements a hybrid approach using the [[https://pypi.org/project/implicit/|`implicit`]] library for matrix factorization while leveraging Neo4j for data management.
 
 ### Data Pipeline for Matrix Factorization
 

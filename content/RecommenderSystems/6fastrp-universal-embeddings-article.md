@@ -307,6 +307,7 @@ graph LR
 ```
 
 **Detailed Performance Metrics**:
+todo: check numbers.....................................................................................
 
 | Approach | Embedding Time | Similarity Computation | Total Time | Memory Usage |
 |----------|----------------|------------------------|------------|--------------|

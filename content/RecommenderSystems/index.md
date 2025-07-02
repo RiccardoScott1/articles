@@ -27,6 +27,10 @@ tags:
 
 A comprehensive deep dive into building production-scale recommender systems using graph databases, covering architecture design, data engineering, and multiple algorithmic approaches.
 
+The complete implementation, including matrix factorisation variants and graph integration patterns, is available in the Steam Recommender Systems repository. 
+
+todo make public and add link
+
 ## Articles in this Series
 
 ### [[1architecture-overview-blueprint|Building a Multi-Modal Recommender System]]
