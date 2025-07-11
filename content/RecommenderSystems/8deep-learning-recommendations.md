@@ -21,12 +21,12 @@ tags:
   - dot-product-similarity
   - neural-cf
   - mlp
-draft: true
+draft: false
 ---
 
 *When neural networks learn what linear algebra cannot*
 
-Having explored matrix factorisation and graph-based approaches, we now venture into the realm of deep learning for recommendation systems. This article examines how neural architectures, particularly Two-Tower models and Neural Collaborative Filtering (NCF), can capture complex user-item interactions whilst leveraging the rich feature ecosystem we've built with Neo4j and PyTorch Lightning.
+Having explored [[7matrix-factorization-approaches|matrix factorisation]] and graph-based [[4content-based-recommendations-article|content-based]], [[5collaborative-filtering-article|collaborative]], and [[6fastrp-universal-embeddings-article|embedding]] approaches, we now venture into the realm of deep learning for recommendation systems. This article examines how neural architectures, particularly Two-Tower models and Neural Collaborative Filtering (NCF), can capture complex user-item interactions whilst leveraging the rich feature ecosystem we've built with Neo4j and PyTorch Lightning.
 
 ## The Deep Learning Paradigm Shift
 
@@ -481,7 +481,7 @@ class TwoTowerServing:
 
 ## Evaluation and Monitoring
 
-### Comprehensive Evaluation Framework
+See [[9recommendation-metrics|here]] for a deep-dive into recommender system metrics.
 
 ```python
 class RecommenderEvaluator:
@@ -520,66 +520,6 @@ class RecommenderEvaluator:
             metrics[f'ndcg@{k}'] = np.mean(ndcg_scores)
         
         return metrics
-```
-
-## Addressing Cold Start with Deep Learning
-
-### Few-Shot Learning Approaches
-
-For new users with minimal interaction history, we can leverage meta-learning:
-
-```python
-class MetaLearningNCF(pl.LightningModule):
-    def __init__(self, base_model, meta_lr=1e-4):
-        super().__init__()
-        self.base_model = base_model
-        self.meta_lr = meta_lr
-    
-    def adapt_to_user(self, user_interactions, n_steps=5):
-        """Adapt model to new user with few interactions"""
-        # Clone model for adaptation
-        adapted_model = copy.deepcopy(self.base_model)
-        optimizer = torch.optim.SGD(
-            adapted_model.parameters(), 
-            lr=self.meta_lr
-        )
-        
-        for _ in range(n_steps):
-            loss = adapted_model.compute_loss(user_interactions)
-            optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
-        
-        return adapted_model
-```
-
-## Performance Optimisation and Scaling
-
-### Distributed Training with PyTorch Lightning
-
-```python
-class DistributedTwoTower(TwoTowerModel):
-    def configure_optimizers(self):
-        # Scale learning rate with number of GPUs
-        base_lr = 1e-3
-        scaled_lr = base_lr * self.trainer.world_size
-        
-        optimizer = torch.optim.AdamW(
-            self.parameters(), 
-            lr=scaled_lr,
-            weight_decay=1e-5
-        )
-        
-        return optimizer
-    
-    def training_step(self, batch, batch_idx):
-        # Gradient synchronisation handled automatically
-        loss = super().training_step(batch, batch_idx)
-        
-        # Log metrics across all processes
-        self.log('train_loss', loss, sync_dist=True)
-        
-        return loss
 ```
 
 ## Integration with Existing Pipeline

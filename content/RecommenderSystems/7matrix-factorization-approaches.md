@@ -21,7 +21,7 @@ tags:
   - production-systems
   - ranking
   - embeddings
-draft: true
+draft: false
 ---
 *When millions of interactions hide billion-dollar insights*
 
@@ -229,6 +229,6 @@ Matrix factorisation remains relevant in the era of deep learning, often serving
 - **Hybrid components** in ensemble systems
 - **Interpretable alternatives** when explainability matters
 
-In our [[8deep-learning-recommendations| next article]], we'll explore how deep learning approaches like Two-Tower architectures and Neural Collaborative Filtering build upon these matrix factorisation foundations while addressing their limitations.
+In our [[8deep-learning-recommendations|next article]], we'll explore how deep learning approaches like Two-Tower architectures and Neural Collaborative Filtering build upon these matrix factorisation foundations while addressing their limitations.
 
 The integration of classical matrix factorisation with modern graph databases demonstrates how foundational algorithms remain valuable when thoughtfully combined with contemporary infrastructure. The Steam recommender system showcases this integration, using Neo4j for feature engineering and relationship discovery while leveraging matrix factorisation for scalable collaborative filtering.
