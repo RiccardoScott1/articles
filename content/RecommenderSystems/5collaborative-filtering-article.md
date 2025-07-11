@@ -20,13 +20,13 @@ tags:
   - bipartite-graph
   - memory-optimisation
   - user-item-matrix
-draft: true
+draft: false
 ---
-*Leveraging Neo4j’s Graph Data Science library to compute real-time user-user and item-item similarities over 15 million interactions—no matrices, no bottlenecks, sub-30 ms query times.*
+*Leveraging Neo4j’s Graph Data Science library to compute real-time user-user and item-item similarities over 15 million interactions—no matrices, no bottlenecks, sub-100 ms query times.*
 
 Traditional collaborative filtering computes similarities in memory-constrained matrices. Modern graph databases flip this paradigm: relationships become first-class citizens, and similarity algorithms operate directly on graph structure. The result? Collaborative filtering that scales to billions of interactions while maintaining sub-100ms query times.
 
-This deep dive reveals how we implemented collaborative filtering using Neo4j's Graph Data Science library, processing 15 million user-game interactions to generate real-time recommendations. The key insight: graph-native algorithms eliminate the memory bottlenecks that plague traditional matrix-based approaches.
+This deep dive reveals how to implement collaborative filtering using Neo4j's Graph Data Science library, processing 15 million user-game interactions to generate real-time recommendations. The key insight: graph-native algorithms eliminate the memory bottlenecks that plague traditional matrix-based approaches.
 
 Our system generates item-item and user-user similarities across 200,000 users and 50,000 games, all within Neo4j's unified graph structure.
 
@@ -40,7 +40,7 @@ Traditional collaborative filtering faces three fundamental constraints:
 
 **Algorithm Isolation**: Similarity computation happens separate from storage, requiring expensive data movement between systems.
 
-Graph-based collaborative filtering solves all three by treating relationships as the computational substrate:
+Graph-based collaborative filtering solves all three by treating relationships as the computational foundation:
 
 ```mermaid
 graph TD
@@ -445,9 +445,9 @@ graph LR
 - **Projection creation**: 2-3 minutes for 15M relationships
 - **Similarity computation**: 8-15 minutes depending on algorithm variant
 - **Result writing**: 1-2 minutes to create similarity relationships
-- **Query performance**: 20-50ms for top-10 recommendations
+- **Query performance**: 20-100ms for top-10 recommendations
 
-### Similarity Cutoff Optimization
+### Similarity Cutoff Optimisation
 
 ```cypher
 -- Optimize storage with similarity cutoffs
@@ -564,7 +564,7 @@ def export_collaborative_features():
     return gds.run_cypher(query)
 ```
 
-Collaborative similarities become input features for todo add link[[two-tower]] and transformer-based models.
+Collaborative similarities become input features for [[8deep-learning-recommendations|two-tower]] and transformer-based models.
 
 ## Conclusion: Graph-Native Collaborative Filtering at Scale
 
@@ -579,7 +579,7 @@ Graph-based collaborative filtering transforms the traditional matrix-memory bot
 
 **Performance at scale**:
 - 15M relationships processed in under 15 minutes
-- Sub-30ms recommendation queries across millions of similarities
+- Sub-100ms recommendation queries across millions of similarities
 - 2.1M similarity relationships with automatic memory management
 
 The strategic insight extends beyond recommendation systems. Graph-native collaborative filtering becomes the foundation for social recommendations, cross-domain suggestions, and multi-stakeholder platforms where relationships define value.

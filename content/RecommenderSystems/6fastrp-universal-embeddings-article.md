@@ -21,11 +21,11 @@ tags:
   - cosine-similarity
   - multi-modal
   - graph-algorithms
-draft: true
+draft: false
 ---
 *Cross-type recommendations in unified embedding spaces*
 
-Most embedding approaches force you to choose: optimise for users OR items, content OR collaborative signals, games OR social features. FastRP (Fast Random Projection) breaks this constraint by creating universal embedding spaces where users, games, groups, and friends coexist as neighbors in the same high-dimensional space.
+Most embedding approaches force you to choose: optimise for users OR items, content OR collaborative signals, games OR social features. FastRP (Fast Random Projection) breaks this constraint by creating universal embedding spaces where users, games, groups, and friends coexist as neighbours in the same high-dimensional space. For more details on FastRP see [[https://arxiv.org/abs/1908.11512|paper]], [[https://en.wikipedia.org/wiki/Random_projection|wikipedia]], or [[https://neo4j.com/docs/graph-data-science/current/machine-learning/node-embeddings/fastrp/|neo4j gds ]].
 
 This breakthrough enables cross-type recommendations: "Users similar to this game," "Groups similar to this user," "Friends who like games similar to your preferences." All from a single embedding computation.
 
@@ -33,7 +33,7 @@ Our Steam implementation demonstrates FastRP generating 64-dimensional embedding
 
 ## The Universal Embedding Challenge
 
-Traditional recommendation systems compartmentalize entities. User embeddings live in user space, item embeddings in item space. Cross-type recommendations require complex bridges between isolated vector spaces:
+Traditional recommendation systems compartmentalise entities. User embeddings live in user space, item embeddings in item space. Cross-type recommendations require complex bridges between isolated vector spaces:
 
 ```mermaid
 graph TD
@@ -342,57 +342,6 @@ RETURN app1.title, hybrid_score
 
 This hybrid approach combines FastRP's cross-type signals with collaborative filtering's interaction patterns.
 
-## Handling Scale and Memory Management
-
-Universal embeddings require careful memory management when dealing with hundreds of thousands of entities.
-
-### Memory-Efficient Projection Strategy
-
-```python
-class FastRP(Model):
-    def create_projection(self):
-        # Only include core relationships, exclude computed similarities
-        edge_types = [e for e in get_all_edge_types(self.gds) 
-                     if "SIMILAR" not in e]
-        
-        projection = Projection(
-            graph_name="universal_optimised",
-            node_projection=get_all_node_labels(self.gds),
-            relationship_projection={
-                edge_type: {"orientation": "UNDIRECTED"}
-                for edge_type in edge_types
-            }
-        )
-        return projection
-```
-
-**Memory optimisation strategies**:
-- Exclude computed similarity relationships from projection
-- Use undirected relationships to reduce memory footprint
-- Implement automatic projection cleanup after embedding computation
-
-## Real-World Implementation Results
-
-Our FastRP implementation delivers production-ready performance across the complete Steam dataset:
-
-### Dataset Scale and Performance
-
-**Entity Counts**:
-- Users: 200,000 active accounts
-- Games: 50,000 titles  
-- Groups: 10,000 communities
-- Relationships: 15M+ connections
-- Universal embeddings: 260,000 64-dimensional vectors
-
-**Performance Metrics**:
-
-| Stage | Time | Memory Peak | Output |
-|-------|------|-------------|---------|
-| **Graph Projection** | 3 minutes | 1.2GB | Universal graph in memory |
-| **FastRP Computation** | 18 minutes | 2.1GB | 260K embeddings |
-| **Similarity Generation** | 6 minutes | 1.8GB | 2.3M similarity relationships |
-| **Total Pipeline** | 27 minutes | 2.1GB | Production-ready embeddings |
-
 ## Advanced Use Cases: Beyond Basic Recommendations
 
 FastRP's universal embedding space enables sophisticated applications that traditional approaches cannot achieve.
@@ -457,60 +406,6 @@ def adaptive_recommendation_weights(user_id, session_context):
 
 FastRP's universal space enables dynamic recommendation adaptation based on user behaviour patterns.
 
-## Future Directions: Temporal and Hierarchical Embeddings
-
-FastRP provides the foundation for advanced embedding techniques that capture temporal dynamics and hierarchical relationships.
-
-### Temporal FastRP for Evolving Preferences
-
-```python
-def temporal_fastrp_embeddings(graph, time_windows):
-    """Generate time-aware embeddings that capture preference evolution"""
-    
-    temporal_embeddings = {}
-    
-    for window in time_windows:
-        # Filter graph to time window
-        temporal_graph = filter_relationships_by_time(graph, window)
-        
-        # Generate FastRP embeddings for this time period
-        embeddings = gds.fastRP.mutate(
-            temporal_graph,
-            embeddingDimension=64,
-            iterationWeights=[0.0, 0.0, 1.0, 1.0],
-            mutateProperty=f"embedding_{window.start_date}"
-        )
-        
-        temporal_embeddings[window] = embeddings
-    
-    return temporal_embeddings
-```
-
-### Hierarchical Multi-Resolution Embeddings
-
-```cypher
--- Multi-scale embeddings capturing different relationship granularities
-CALL gds.fastRP.mutate(
-    'universal_graph',
-    {
-        embeddingDimension: 64,
-        iterationWeights: [1.0, 0.5, 0.25, 0.0],  // Local neighborhood focus
-        mutateProperty: 'local_embedding'
-    }
-)
-
-CALL gds.fastRP.mutate(
-    'universal_graph', 
-    {
-        embeddingDimension: 64,
-        iterationWeights: [0.0, 0.25, 0.5, 1.0],  // Global structure focus
-        mutateProperty: 'global_embedding'
-    }
-)
-```
-
-Different iteration weights capture local vs global relationship patterns within the same universal space.
-
 ## Conclusion: Universal Embeddings as Recommendation Foundation
 
 FastRP transforms the fundamental approach to recommendation systems by eliminating entity type boundaries. Instead of building separate models for users, items, and communities, universal embeddings create a unified similarity space where cross-type recommendations emerge naturally.
@@ -519,12 +414,12 @@ FastRP transforms the fundamental approach to recommendation systems by eliminat
 
 - **Unified computation**: Single embedding pass generates features for all recommendation types
 - **Cross-type discovery**: Native support for user-game, user-group, and game-group similarities  
-- **Scalable performance**: 52% faster than equivalent separate embedding approaches
+- **Scalable performance**: faster than equivalent separate embedding approaches
 - **Memory efficiency**: 50% reduction in memory usage compared to traditional methods
 
 **Production impact**:
-- 260,000 entities embedded in 27 minutes
-- Sub-50ms cross-type recommendations
+- 260,000 entities embedded in under 30 minutes
+- Sub-100ms cross-type recommendations
 - Novel recommendation types impossible with traditional approaches
 
 The strategic insight extends beyond recommendation systems. Universal embeddings become the foundation for multi-modal AI systems where users, content, communities, and contexts interact fluidly. They enable recommendation engines that understand not just what users like, but how they relate to entire digital ecosystems.
