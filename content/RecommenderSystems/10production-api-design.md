@@ -24,7 +24,7 @@ tags:
   - authentication
   - observability
   - sla
-draft: true
+draft: false
 ---
 *From research prototype to production—design APIs that survive contact with reality*
 
