@@ -20,17 +20,22 @@ Welcome to a collection of hands-on, developer-friendly tutorials covering **rec
 
 ## [[RecommenderSystems/index|Recommender Systems]]
 
-*Production-scale graph-based recommendation engines*
+*From research prototype to production-scale recommendation engines*
 
-Build sophisticated recommender systems using Neo4j, supporting multiple algorithms from content-based filtering to deep learning approaches.
+Build sophisticated recommender systems that handle millions of users and serve 15+ algorithms through unified APIs. This comprehensive series covers everything from graph database design to neural collaborative filtering.
 
-### Key Topics:
+### Complete Journey:
+- **Architecture & Infrastructure** - Multi-modal system design, graph schemas, and data pipelines
+- **Algorithm Deep-Dives** - Content-based filtering, collaborative filtering, FastRP embeddings, matrix factorisation, and deep learning
+- **Production Engineering** - Evaluation metrics, API design, and operational excellence
+
+### Featured Articles:
 - **[[RecommenderSystems/1architecture-overview-blueprint|Multi-Modal Architecture]]** - Unified API serving 15+ algorithms with microservices design
-- **[[RecommenderSystems/2graph-database-design-article|Graph Database Design]]** - Schema patterns for performance and algorithm flexibility
-- **[[RecommenderSystems/3data-import-strategies-article|Data Import Strategies]]** - Transaction vs bulk import performance comparison
-- **[[RecommenderSystems/4content-based-recommendations-article|Content-Based Filtering]]** - Feature engineering and vector similarity with Neo4j GDS
+- **[[RecommenderSystems/5collaborative-filtering-article|Graph-Native Collaborative Filtering]]** - Sub-100ms queries across millions of relationships
+- **[[RecommenderSystems/6fastrp-universal-embeddings-article|Universal Embeddings]]** - Cross-type recommendations in unified vector spaces
+- **[[RecommenderSystems/8deep-learning-recommendations|Neural Collaborative Filtering]]** - When neural networks learn what linear algebra cannot
 
-**Perfect for:** ML engineers, data scientists, and backend developers building recommendation engines at scale
+**Perfect for:** ML engineers, data scientists, and backend developers building recommendation engines that scale beyond academic datasets
 
 ---
 
