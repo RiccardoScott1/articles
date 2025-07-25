@@ -9,9 +9,26 @@ tags:
   - spatial-analysis
   - data-science
   - gis
+  - energy-infrastructure
+  - etl-pipeline
+  - data-engineering
 ---
 
-A collection of hands-on, developer-friendly tutorials for working with geospatial data. Whether you're clustering buildings, building a spatial analytics environment, or extracting data from OpenStreetMap — these guides will help you do it efficiently with open tools like **PostGIS**, **GDAL**, **Docker**, and the **Overpass API**.
+A collection of hands-on, developer-friendly tutorials for working with geospatial data. From enterprise ETL pipelines for critical infrastructure to spatial clustering algorithms—these guides cover everything from extracting OpenStreetMap data to building production-ready geospatial systems using **PostGIS**, **GDAL**, **Docker**, and modern data engineering practices.
+
+---
+
+## Energy Infrastructure Intelligence
+
+### [[osm_energy_infra_long|Mapping the Invisible | How OpenStreetMap Reveals Our Power Grid]]
+*When millions go dark, the invisible grid becomes visible—here's how crowd-sourced data illuminates the backbone of civilisation*
+
+Discover how to transform OpenStreetMap's vast geographic database into actionable electrical infrastructure intelligence. This comprehensive case study demonstrates enterprise-grade ETL capabilities through a production pipeline that processes millions of power-related features—from transmission lines to renewable generators. Perfect for energy professionals, data engineers, and infrastructure analysts seeking to understand grid topology, assess renewable capacity, and support critical infrastructure planning.
+
+### [[osm_energy_infra_tutorial|Building a Modern ETL Pipeline for Critical Infrastructure Data]]
+*From chaos to clarity—how enterprise-grade data engineering transforms scattered geographic fragments into strategic intelligence*
+
+A technical deep-dive into building scalable, high-performance ETL pipelines for geospatial infrastructure data. Learn the architectural decisions, performance optimisations, and domain expertise that enable processing country-scale datasets with sub-second query times. Features containerised microservices, intelligent unit conversion, and automated data quality validation—showcasing modern data engineering practices applied to energy sector challenges.
 
 ---
 
@@ -57,7 +74,11 @@ Skip the full planet file—learn how to write efficient, custom Overpass QL que
 
 ## Start Exploring
 
-Whether you're new to geospatial development or looking to scale your workflows with Docker and PostGIS, these articles are designed to be **practical, code-driven, and ready to apply** to your own projects.
+Whether you're building enterprise-grade ETL pipelines for critical infrastructure, clustering spatial data, or setting up geospatial analytics environments, these articles provide **practical, production-ready solutions** you can apply immediately.
 
-→ **Tip**: Start with [DBSCAN in PostGIS](https://chatgpt.com/c/clustering-dbscan-postgis.md) or [Overpass API](https://chatgpt.com/c/overpass-api-guide.md) for quick wins with real-world data.
+**Recommended Starting Points:**
+- **For Infrastructure & Energy Projects**: Start with [[osm_energy_infra_long|Mapping the Invisible]] to see enterprise ETL in action
+- **For Spatial Analytics**: Try [[DBSCAN in PostGIS]] for immediate clustering results
+- **For Development Setup**: Begin with [[geospatial stack a quick tutorial]] to get your environment running
+- **For Data Extraction**: Explore [[OpenStreetMap Data]] to master the Overpass API
 
