@@ -10,7 +10,9 @@ tags:
 ---
 *A streamlined, containerised setup for geospatial data projects using Docker Compose.* 
 
-By integrating a PostGIS database for geospatial data storage, a GDAL-powered client for data processing, and JupyterLab for interactive analysis, this setup provides a robust and modular solution for geospatial workflows. With persistent data storage, seamless service communication, and custom Dockerfiles, it simplifies tasks like ETL pipelines, database management, and advanced visualization. Whether you're a GIS professional or a data scientist, this guide offers a scalable and reproducible foundation to enhance your geospatial projects.
+If you are a GIS professional or data scientist you've probably also spent hours installing and re-installing various postgis, gdal and geopandas versions until it worked and you forgot what fixed the issue, only to encounter it again on a different machine or project.
+
+This guide offers a scalable and reproducible foundation to enhance your geospatial projects. By integrating a PostGIS database, a GDAL-powered client for data processing, and JupyterLab for interactive analysis, this setup provides a robust and modular solution for geospatial workflows. With persistent data storage, seamless service communication, and custom Dockerfiles, it simplifies tasks like ETL pipelines, database management, and advanced visualisation. 
 
 The repo can be found [here](https://github.com/RiccardoScott1/simple_geosetup). Here's the main files in it:
 ```

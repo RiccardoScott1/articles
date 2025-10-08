@@ -7,7 +7,7 @@ tags:
   - Deployment
   - Infrastructure
 ---
-*Host your own LLM with Ollama on DigitalOcean—cut costs, keep your data private, and gain full control over your AI stack.*
+ *Host your own LLM with Ollama on DigitalOcean—cut costs, keep your data private, and gain full control over your AI stack.*
 ![[ollam_do_logo.png]]
 ## Why Run Your Own LLM Instead of Using OpenAI or Google?
 

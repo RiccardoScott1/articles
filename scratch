@@ -1,0 +1,9 @@
+A full-stack RAG pipeline that lets you chat with the entire content of any website.
+
+🧠 Crawl → Embed → Chat.
+🔧 Using only open tools: n8n, Supabase, Ollama, and Crawl4AI.
+📖 Full guide here: [[Quickstart.md]]
+Detailed guides on
+setting up n8n and Supabase here
+setting up an Ollama model on Digital Ocean here
+setting up the crawler locally here
