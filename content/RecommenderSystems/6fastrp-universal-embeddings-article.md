@@ -25,7 +25,7 @@ draft: false
 ---
 *Cross-type recommendations in unified embedding spaces*
 
-Most embedding approaches force you to choose: optimise for users OR items, content OR collaborative signals, games OR social features. FastRP (Fast Random Projection) breaks this constraint by creating universal embedding spaces where users, games, groups, and friends coexist as neighbours in the same high-dimensional space. For more details on FastRP see [[https://arxiv.org/abs/1908.11512|paper]], [[https://en.wikipedia.org/wiki/Random_projection|wikipedia]], or [[https://neo4j.com/docs/graph-data-science/current/machine-learning/node-embeddings/fastrp/|neo4j gds ]].
+Most embedding approaches — [[7matrix-factorization-approaches|matrix factorisation]] included — force you to choose: optimise for users OR items, [[4content-based-recommendations-article|content]] OR [[5collaborative-filtering-article|collaborative]] signals, games OR social features. FastRP (Fast Random Projection) breaks this constraint by creating universal embedding spaces where users, games, groups, and friends coexist as neighbours in the same high-dimensional space. For more details on FastRP see [[https://arxiv.org/abs/1908.11512|paper]], [[https://en.wikipedia.org/wiki/Random_projection|wikipedia]], or [[https://neo4j.com/docs/graph-data-science/current/machine-learning/node-embeddings/fastrp/|neo4j gds ]].
 
 This breakthrough enables cross-type recommendations: "Users similar to this game," "Groups similar to this user," "Friends who like games similar to your preferences." All from a single embedding computation.
 
@@ -120,7 +120,7 @@ Our configuration uses iteration weights `[0.0, 0.0, 1.0, 1.0]`, emphasizing hig
 
 ## Universal Graph Projection: All Entities, One Space
 
-The key to universal embeddings is the graph projection strategy. We include every entity type and relationship in a single projection:
+The key to universal embeddings is the graph projection strategy. We include every entity type and relationship from [[2graph-database-design-article|our graph schema]] in a single projection:
 
 ### Complete Entity Integration
 
@@ -340,7 +340,7 @@ LIMIT 10
 RETURN app1.title, hybrid_score
 ```
 
-This hybrid approach combines FastRP's cross-type signals with collaborative filtering's interaction patterns.
+This hybrid approach combines FastRP's cross-type signals with the interaction patterns from [[5collaborative-filtering-article|collaborative filtering]].
 
 ## Advanced Use Cases: Beyond Basic Recommendations
 
@@ -421,6 +421,8 @@ FastRP transforms the fundamental approach to recommendation systems by eliminat
 - 260,000 entities embedded in under 30 minutes
 - Sub-100ms cross-type recommendations
 - Novel recommendation types impossible with traditional approaches
+
+In production, the FastRP models are registered alongside the other algorithms in the model factory of [[10production-api-design|our recommendation API]].
 
 The strategic insight extends beyond recommendation systems. Universal embeddings become the foundation for multi-modal AI systems where users, content, communities, and contexts interact fluidly. They enable recommendation engines that understand not just what users like, but how they relate to entire digital ecosystems.
 

@@ -42,13 +42,15 @@ draft: true
 
 *A technical deep-dive demonstrating our advanced ETL capabilities and energy sector expertise through a production-ready OpenStreetMap processing pipeline*
 
+*This is the hands-on companion to [[osm_energy_infra_long|Mapping the Invisible — How OpenStreetMap Reveals Our Power Grid]], which covers the motivation and results in more depth.*
+
 In the energy sector, access to comprehensive infrastructure data is crucial for grid planning, risk assessment, and investment decisions. This tutorial demonstrates our approach to building scalable, high-performance ETL pipelines that transform complex geographic data into actionable intelligence.
 
 We'll walk through the key architectural decisions, technical implementations, and performance optimizations that enable processing of country-scale datasets with enterprise-grade reliability.
 
 ## The Challenge: From Scattered Data to Structured Intelligence
 
-OpenStreetMap contains millions of infrastructure features, but they're scattered across a complex data model optimized for mapping, not analysis. A single power line might be split across dozens of elements, each with different attributes and tagging schemes.
+OpenStreetMap contains millions of infrastructure features, but they're scattered across a complex data model optimized for mapping, not analysis (see [[OpenStreetMap Data]] for an introduction to OSM's nodes, ways, and relations and how to query them). A single power line might be split across dozens of elements, each with different attributes and tagging schemes.
 
 Our pipeline solves this by:
 - Filtering relevant infrastructure from massive OSM files
@@ -144,6 +146,8 @@ poetry install
 - `PostGIS`: Spatial database extensions
 - `GeoPandas`: Geospatial data analysis
 - `psycopg2`: PostgreSQL database connectivity
+
+The PostGIS + Jupyter/GeoPandas combination is the same stack we set up in [[geospatial stack a quick tutorial]], with more background in [[geospatial stack in depth]].
 
 *See `pyproject.toml` [LINK] for complete dependency specification*
 
@@ -365,6 +369,8 @@ osmium tags-filter country.osm.pbf \
 osm2pgsql --create --output=flex --slim \
     --style=/config/osm2pg.lua filtered.osm.pbf
 ```
+
+osm2pgsql is one of several routes for getting geodata into the database — [[Geoformats to PostGIS]] compares the alternatives.
 
 **Transform Phase:**
 ```bash

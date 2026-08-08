@@ -40,7 +40,7 @@ Modern graph databases need to handle two distinct data loading patterns:
 **Initial Load**: Populating an empty database with historical data (50M+ records)
 **Incremental Updates**: Adding new relationships as users interact with games (thousands per minute)
 
-Traditional approaches optimise for one pattern. Our Steam recommender system implements both, choosing the optimal strategy based on data characteristics and business requirements.
+Traditional approaches optimise for one pattern. Our [[1architecture-overview-blueprint|Steam recommender system]] implements both, choosing the optimal strategy based on data characteristics and business requirements.
 
 ```mermaid
 graph TD
@@ -122,7 +122,7 @@ MERGE (u:USER {steamid: record.steamid})
 SET u.personaname = record.personaname
 ```
 
-Each transaction processes thousands of records atomically, balancing performance with consistency.
+Each transaction processes thousands of records atomically, balancing performance with consistency. The `USER` nodes and their properties merged here follow the schema laid out in [[2graph-database-design-article|Graph Database Design for Recommender Systems]].
 
 ### Optimised Variants: Pandas vs. Polars
 
@@ -466,3 +466,7 @@ The strategic insight: **import strategy is feature engineering infrastructure**
 Your data import pipeline becomes your competitive advantage—not just moving data, but enabling the speed of machine learning innovation.
 
 Choose the right approach for each scenario, implement both patterns, and monitor performance religiously. The payoff is measured in deployed models, not just loaded records.
+
+---
+
+*Next in the series: with the graph loaded, the algorithm work begins in [[4content-based-recommendations-article|Content-Based Recommendations]].*

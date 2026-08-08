@@ -28,7 +28,7 @@ draft: false
 ---
 *From research prototype to production—design APIs that survive contact with reality*
 
-Building a production-ready API for serving machine learning recommendations requires careful consideration of performance, scalability, and maintainability. This step-by-step tutorial explores how the Steam recommender system implements a robust FastAPI service that serves multiple recommendation algorithms whilst maintaining high availability and operational excellence.
+Building a production-ready API for serving machine learning recommendations requires careful consideration of performance, scalability, and maintainability. This step-by-step tutorial explores how the [[1architecture-overview-blueprint|Steam recommender system]] implements a robust FastAPI service that serves multiple recommendation algorithms whilst maintaining high availability and operational excellence.
 
 ## Step 1: FastAPI Architecture Foundation
 
@@ -217,6 +217,8 @@ graph LR
 - Clear separation of concerns
 - Type-safe model instantiation
 
+The registered models are the algorithms built earlier in this series: [[4content-based-recommendations-article|content-based recommendations]], [[5collaborative-filtering-article|collaborative filtering]], [[7matrix-factorization-approaches|matrix factorisation]], and [[6fastrp-universal-embeddings-article|FastRP embeddings]].
+
 ## Step 4: Database Connection Management
 
 ### Centralised Connection Handling
@@ -334,6 +336,8 @@ WITH rec, sum(p.playtime_forever * s.score) / sum(p.playtime_forever) as score
 ORDER BY score DESC
 LIMIT $n
 ```
+
+The template runs against the schema from [[2graph-database-design-article|our graph database design]]; the `__SIMILAR_RELATION__` placeholder is swapped per model for the precomputed similarity relationships, so one query serves every algorithm.
 
 **Optimisation strategies:**
 - Query plan caching
@@ -511,3 +515,5 @@ Building a production-ready recommendation API requires balancing performance, m
 - **Ensure reliability** with comprehensive error handling and health checks
 - **Maintain flexibility** with pluggable recommendation algorithms
 - **Support operations** through logging, documentation, and monitoring
+
+Serving recommendations reliably is only half the story — whether they are any *good* is the subject of [[9recommendation-metrics|Recommendation Metrics]].
